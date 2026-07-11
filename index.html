@@ -1,0 +1,2890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0B0F14">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Plush Notes">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <title>Plush Notes Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Code Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+
+    <style>
+        /* ===== THEME ===== */
+        :root {
+            --bg-main: #0B0F14;
+            --bg-surface: #111827;
+            --bg-hover: #1f2937;
+            --bg-chat: #0B0F14;
+            --accent-primary: #3b82f6;
+            --accent-gradient: linear-gradient(135deg, #3b82f6, #6366f1);
+            --chat-bubble: #1e3a8a;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(17, 24, 39, 0.75);
+        }
+        body.light-mode {
+            --bg-main: #f3f4f6;
+            --bg-surface: #ffffff;
+            --bg-hover: #e5e7eb;
+            --bg-chat: #f9fafb;
+            --accent-primary: #059669;
+            --accent-gradient: linear-gradient(135deg, #059669, #10b981);
+            --chat-bubble: #d1fae5;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+        }
+        body.theme-amoled {
+            --bg-main: #000000;
+            --bg-surface: #0a0a0a;
+            --bg-hover: #161616;
+            --bg-chat: #000000;
+            --accent-primary: #3b82f6;
+            --accent-gradient: linear-gradient(135deg, #3b82f6, #6366f1);
+            --chat-bubble: #101828;
+            --text-primary: #f5f5f5;
+            --text-secondary: #8a8a8a;
+            --border-color: rgba(255, 255, 255, 0.07);
+            --glass-bg: rgba(5, 5, 5, 0.8);
+        }
+        body.theme-ocean {
+            --bg-main: #061826;
+            --bg-surface: #0b2436;
+            --bg-hover: #123349;
+            --bg-chat: #061826;
+            --accent-primary: #22d3ee;
+            --accent-gradient: linear-gradient(135deg, #0ea5e9, #22d3ee);
+            --chat-bubble: #0e3a52;
+            --text-primary: #eaf7fb;
+            --text-secondary: #7fb3c9;
+            --border-color: rgba(148, 226, 255, 0.1);
+            --glass-bg: rgba(11, 36, 54, 0.78);
+        }
+        body.theme-midnight {
+            --bg-main: #120b23;
+            --bg-surface: #1b1233;
+            --bg-hover: #271a45;
+            --bg-chat: #120b23;
+            --accent-primary: #a78bfa;
+            --accent-gradient: linear-gradient(135deg, #8b5cf6, #c084fc);
+            --chat-bubble: #2e1f52;
+            --text-primary: #f3eeff;
+            --text-secondary: #a596c7;
+            --border-color: rgba(196, 165, 255, 0.12);
+            --glass-bg: rgba(27, 18, 51, 0.78);
+        }
+        body.theme-emerald {
+            --bg-main: #06170f;
+            --bg-surface: #0c2419;
+            --bg-hover: #123423;
+            --bg-chat: #06170f;
+            --accent-primary: #34d399;
+            --accent-gradient: linear-gradient(135deg, #10b981, #34d399);
+            --chat-bubble: #103826;
+            --text-primary: #e9fff4;
+            --text-secondary: #86bfa6;
+            --border-color: rgba(110, 231, 183, 0.12);
+            --glass-bg: rgba(12, 36, 25, 0.78);
+        }
+        body.theme-sunset {
+            --bg-main: #1c0f0a;
+            --bg-surface: #2a1610;
+            --bg-hover: #3a1f16;
+            --bg-chat: #1c0f0a;
+            --accent-primary: #fb923c;
+            --accent-gradient: linear-gradient(135deg, #f97316, #f43f5e);
+            --chat-bubble: #4a2016;
+            --text-primary: #fff3ec;
+            --text-secondary: #d1a893;
+            --border-color: rgba(251, 146, 60, 0.14);
+            --glass-bg: rgba(42, 22, 16, 0.78);
+        }
+
+        /* ===== RESET ===== */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html, body {
+            margin: 0; padding: 0; width: 100%; height: 100dvh;
+            background-color: var(--bg-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow: hidden;
+            transition: background-color 0.3s ease;
+            -webkit-user-select: none;
+            user-select: none;
+            overscroll-behavior: none;
+            -webkit-touch-callout: none;
+        }
+        input, textarea, .message-text, .rich-text-content {
+            -webkit-user-select: text !important;
+            user-select: text !important;
+            font-family: inherit;
+        }
+        ::placeholder { color: var(--text-secondary) !important; opacity: 0.7; }
+
+        /* ===== APP CONTAINER ===== */
+        .app-container {
+            width: 100%; max-width: 450px; height: 100dvh; margin: 0 auto;
+            background-color: transparent; display: flex; flex-direction: column;
+            position: relative; overflow: hidden; z-index: 1;
+        }
+        .app-container::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle at center, rgba(59, 130, 246, 0.06) 0%, transparent 50%);
+            z-index: -1; pointer-events: none;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            flex-shrink: 0; padding: 20px 20px 10px 20px; z-index: 10; position: relative;
+        }
+        .top-bar {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;
+        }
+        .top-bar h1 {
+            color: var(--text-primary); font-size: 22px; font-weight: 700; margin: 0;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .menu-trigger-btn {
+            width: 42px; height: 42px; border-radius: 14px;
+            display: flex; justify-content: center; align-items: center;
+            background: var(--glass-bg); backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+            color: var(--text-primary); font-size: 19px; cursor: pointer;
+            transition: transform 0.15s ease, background 0.2s ease;
+        }
+        .menu-trigger-btn:active { transform: scale(0.88); background: var(--bg-hover); }
+        .hero-section { margin-bottom: 25px; }
+        .hero-title {
+            font-size: 30px; font-weight: 700; color: var(--text-primary);
+            margin: 0 0 5px 0; letter-spacing: -0.5px;
+        }
+        .hero-subtitle {
+            font-size: 15px; color: var(--text-secondary); margin: 0; font-weight: 500;
+        }
+        .search-bar {
+            background: var(--glass-bg); backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color); border-radius: 20px;
+            padding: 12px 18px; display: flex; align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .search-bar i { color: var(--text-secondary); margin-right: 12px; font-size: 18px; }
+        .search-bar input {
+            background: transparent; border: none; color: var(--text-primary);
+            font-size: 15px; width: 100%; outline: none; font-weight: 500;
+        }
+
+        /* ===== NOTES LIST ===== */
+        .notes-list {
+            flex-grow: 1; overflow-y: auto; padding-bottom: 120px; padding-top: 10px;
+        }
+        .notes-list::-webkit-scrollbar { display: none; }
+        .note-item {
+            display: flex; padding: 16px; margin: 0 20px 16px 20px; cursor: pointer;
+            position: relative; background: var(--glass-bg);
+            border: 1px solid var(--border-color); border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        body.light-mode .note-item { box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .note-item.pressed { transform: scale(0.96); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .note-avatar {
+            width: 55px; height: 55px; border-radius: 16px;
+            display: flex; justify-content: center; align-items: center;
+            margin-right: 18px; flex-shrink: 0; overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .note-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .note-avatar i { color: white; font-size: 26px; }
+        .note-content { flex: 1; display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+        .note-header {
+            display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;
+        }
+        .note-title {
+            color: var(--text-primary); font-size: 17px; font-weight: 600;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            display: flex; align-items: center; gap: 6px; letter-spacing: -0.3px;
+        }
+        .note-time {
+            color: var(--text-secondary); font-size: 12px; font-weight: 500; flex-shrink: 0; margin-left: 10px;
+        }
+        .note-preview {
+            color: var(--text-secondary); font-size: 14px; font-weight: 500;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .pin-icon { color: var(--accent-primary); font-size: 14px; transform: rotate(45deg); }
+
+        /* ===== BOTTOM APP BAR ===== */
+        .bottom-app-bar {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 80px;
+            background: var(--glass-bg); backdrop-filter: blur(15px);
+            display: flex; align-items: center; padding: 0 30px;
+            border-top: 1px solid var(--border-color); z-index: 20;
+        }
+        .fab-wrapper {
+            position: absolute; right: 25px; top: -25px; border-radius: 50%;
+            padding: 6px; background: var(--bg-main); transition: 0.3s;
+        }
+        .fab-btn {
+            width: 60px; height: 60px; border-radius: 50%;
+            background: var(--accent-gradient); color: white;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 28px; border: none; cursor: pointer;
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+        .fab-btn.active { transform: rotate(45deg) scale(0.9); }
+        .fab-menu {
+            position: absolute; bottom: 130px; right: 30px;
+            display: flex; flex-direction: column; gap: 15px; align-items: flex-end;
+            opacity: 0; pointer-events: none;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+            z-index: 25; transform: translateY(15px) scale(0.95);
+            transform-origin: bottom right;
+            will-change: transform, opacity;
+        }
+        .fab-menu.active { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+        .fab-item {
+            background: var(--bg-surface); border: 1px solid var(--border-color);
+            color: var(--text-primary); padding: 14px 22px; border-radius: 30px;
+            display: flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 600;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5); cursor: pointer;
+            transition: transform 0.2s; will-change: transform;
+        }
+        .fab-item i { color: var(--accent-primary); font-size: 22px; }
+        .fab-item:active { transform: scale(0.95); }
+
+        /* ===== CIRCULAR MENU ===== */
+        .circular-menu-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4); z-index: 100;
+            display: none; backdrop-filter: blur(4px);
+            opacity: 0; transition: opacity 0.2s;
+        }
+        .circular-menu-overlay.active { display: block; opacity: 1; }
+        .circle-menu-center {
+            position: absolute; width: 50px; height: 50px; border-radius: 50%;
+            background: var(--glass-bg); display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.4); border: 1px solid var(--border-color);
+            transform: translate(-50%, -50%); z-index: 101;
+        }
+        .circle-btn {
+            position: absolute; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s;
+            opacity: 0; transform: scale(0.5); z-index: 100;
+            font-size: 22px; color: white; touch-action: manipulation;
+        }
+        .circle-btn:active { filter: brightness(1.2); transform: scale(0.9) !important; }
+        .c-pin { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .c-dup { background: linear-gradient(135deg, #10b981, #059669); }
+        .c-color { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .c-share { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .c-hide { background: linear-gradient(135deg, #64748b, #475569); }
+        .c-del { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+        .circular-menu-overlay.active .c-pin { transform: translate(0, -78px) scale(1); opacity: 1; }
+        .circular-menu-overlay.active .c-dup { transform: translate(68px, -39px) scale(1); opacity: 1; }
+        .circular-menu-overlay.active .c-hide { transform: translate(68px, 39px) scale(1); opacity: 1; }
+        .circular-menu-overlay.active .c-color { transform: translate(0, 78px) scale(1); opacity: 1; }
+        .circular-menu-overlay.active .c-share { transform: translate(-68px, 39px) scale(1); opacity: 1; }
+        .circular-menu-overlay.active .c-del { transform: translate(-68px, -39px) scale(1); opacity: 1; }
+
+        /* ===== CHAT MODAL ===== */
+        .chat-modal {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--bg-chat); z-index: 30;
+            display: flex; flex-direction: column;
+            transform: translateX(100%); transition: transform 0.3s ease-in-out;
+        }
+        .chat-modal.active { transform: translateX(0); }
+
+        .chat-header {
+            flex-shrink: 0; display: flex; align-items: center;
+            padding: 12px 20px; background: var(--glass-bg); backdrop-filter: blur(15px);
+            height: 75px; border-bottom: 1px solid var(--border-color);
+            z-index: 5;
+        }
+        .chat-header .back-btn {
+            color: var(--text-primary); font-size: 24px; margin-right: 18px; cursor: pointer; padding: 5px;
+        }
+        .chat-profile-area { display: flex; align-items: center; flex: 1; cursor: pointer; overflow: hidden; }
+        .chat-header-avatar {
+            width: 45px; height: 45px; border-radius: 12px;
+            display: flex; justify-content: center; align-items: center;
+            margin-right: 15px; color: white; overflow: hidden; flex-shrink: 0; font-size: 22px;
+        }
+        .chat-header-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .chat-title-text {
+            color: var(--text-primary); font-size: 19px; font-weight: 600;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            display: flex; align-items: center; gap: 6px; letter-spacing: -0.3px;
+        }
+        .chat-body {
+            flex-grow: 1; padding: 25px 20px; overflow-y: auto;
+            display: flex; flex-direction: column; gap: 15px;
+            background-size: cover; background-position: center; background-attachment: fixed;
+            overflow-x: hidden; touch-action: pan-y;
+            transition: filter 0.3s ease, opacity 0.3s ease;
+        }
+        body.focus-mode header, body.focus-mode .chat-header, body.focus-mode .chat-body {
+            filter: blur(6px); opacity: 0.5;
+        }
+
+        /* ===== MESSAGES ===== */
+        .message {
+            background-color: var(--chat-bubble); color: var(--text-primary);
+            padding: 12px 16px; border-radius: 18px; width: 88%; max-width: 400px;
+            align-self: center; text-align: left; font-size: 15.5px; font-weight: 500;
+            line-height: 1.5; letter-spacing: 0.2px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15); cursor: pointer;
+            word-wrap: break-word;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            -webkit-user-select: none !important; user-select: none !important;
+            touch-action: pan-y; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .message:active { transform: scale(0.97); }
+        .message-time {
+            display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+            color: rgba(255,255,255,0.5); margin-bottom: 6px; text-align: center; pointer-events: none;
+        }
+        .message img {
+            width: 100%; max-height: 250px; object-fit: cover; border-radius: 12px;
+            margin-top: 5px; cursor: pointer; pointer-events: auto;
+        }
+        .rich-text-content table {
+            width: 100%; border-collapse: collapse; margin-top: 8px; border-radius: 8px; overflow: hidden;
+        }
+        .rich-text-content table, .rich-text-content th, .rich-text-content td {
+            border: 1px solid var(--border-color); padding: 8px;
+        }
+        .rich-text-content pre {
+            background: rgba(0,0,0,0.4); padding: 12px; border-radius: 8px;
+            overflow-x: auto; font-family: monospace; font-size: 14px; position: relative;
+        }
+        .rich-text-content ul, .rich-text-content ol { padding-left: 20px; margin: 5px 0; }
+        .list-container {
+            background: rgba(0,0,0,0.15); border-radius: 12px; padding: 12px 16px;
+            margin-top: 5px; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .list-item {
+            display: flex; align-items: flex-start; margin-bottom: 8px; text-align: left;
+        }
+        .list-item:last-child { margin-bottom: 0; }
+        .list-item .bullet {
+            color: var(--accent-primary); margin-right: 12px; font-size: 22px; line-height: 0.9;
+        }
+        .reply-block {
+            background: rgba(0,0,0,0.25); border-left: 4px solid var(--accent-primary);
+            padding: 10px 12px; border-radius: 8px; margin-bottom: 10px; font-size: 14px; pointer-events: none;
+        }
+        .reply-block-content {
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+            overflow: hidden; color: var(--text-secondary); font-weight: 500;
+        }
+
+        .reply-banner {
+            display: none; background: var(--bg-hover);
+            border-left: 4px solid var(--accent-primary);
+            padding: 12px 20px; border-radius: 12px 12px 0 0;
+            margin: 0 15px; align-items: center; justify-content: space-between;
+            border: 1px solid var(--border-color); border-bottom: none;
+        }
+        .reply-banner.active { display: flex; }
+        .reply-banner-content {
+            flex: 1; color: var(--text-primary); font-size: 14px; font-weight: 600;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-right: 10px;
+        }
+        .reply-banner-close { color: var(--text-secondary); cursor: pointer; padding: 5px; font-size: 18px; }
+
+        /* ===== CHAT FOOTER ===== */
+        .chat-footer {
+            flex-shrink: 0; display: flex; flex-direction: column;
+            background: var(--glass-bg); backdrop-filter: blur(20px);
+            transition: 0.3s; border-top: 1px solid var(--border-color);
+            z-index: 31; padding-bottom: 5px;
+        }
+        .chat-input-area {
+            display: flex; padding: 12px 15px; align-items: flex-end; gap: 12px;
+        }
+        .attach-btn {
+            color: var(--text-secondary); font-size: 26px; padding: 8px; cursor: pointer; transition: 0.2s;
+        }
+        .chat-input-wrapper {
+            flex: 1; background-color: var(--bg-main); border-radius: 24px;
+            padding: 12px 18px; display: flex; align-items: center;
+            border: 1px solid var(--border-color); box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .chat-input-wrapper textarea {
+            flex: 1; background: transparent; border: none; color: var(--text-primary);
+            font-size: 16px; font-weight: 500; resize: none; outline: none;
+            min-height: 24px; max-height: 120px;
+        }
+        .chat-input-wrapper textarea.code-mode {
+            font-family: 'SFMono-Regular', Consolas, 'Courier New', monospace;
+            font-size: 13.5px; color: #7dd3fc;
+        }
+        .chat-input-wrapper:has(textarea.code-mode) { border-color: var(--accent-primary); }
+        .send-btn {
+            background: var(--accent-gradient); color: white; border: none;
+            width: 48px; height: 48px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; font-size: 22px; flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            transition: transform 0.2s;
+        }
+        .send-btn:active { transform: scale(0.9); }
+
+        /* ===== OVERLAYS ===== */
+        .preview-overlay, .draw-overlay, .rt-overlay, .fullscreen-viewer,
+        .sheet-overlay, .invoice-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-main); z-index: 60;
+            display: none; flex-direction: column;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform: translateY(100%);
+        }
+        .preview-overlay.active, .draw-overlay.active, .rt-overlay.active,
+        .fullscreen-viewer.active, .sheet-overlay.active, .invoice-overlay.active {
+            display: flex; transform: translateY(0);
+        }
+        .overlay-header {
+            padding: 15px 20px; display: flex; justify-content: space-between;
+            align-items: center; background: var(--glass-bg); backdrop-filter: blur(15px);
+            color: white; border-bottom: 1px solid var(--border-color); z-index: 10;
+        }
+        .overlay-header i { font-size: 24px; cursor: pointer; color: var(--text-primary); padding: 5px; }
+        .overlay-header span { font-size: 18px; font-weight: 600; color: var(--text-primary); }
+
+        /* ===== DRAWING ===== */
+        .draw-area-container {
+            flex: 1; position: relative; overflow: hidden;
+            background: transparent; transition: background 0.3s;
+        }
+        #draw-canvas {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            touch-action: none; cursor: crosshair;
+        }
+        #text-overlay-container {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 61; overflow: hidden;
+        }
+        .draggable-text {
+            position: absolute; pointer-events: auto; cursor: move;
+            padding: 5px; font-weight: 600; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            white-space: nowrap;
+        }
+        .draw-toolbar {
+            height: 80px; background: var(--glass-bg); backdrop-filter: blur(15px);
+            display: flex; align-items: center; justify-content: space-around;
+            padding: 0 10px; border-top: 1px solid var(--border-color); z-index: 62;
+        }
+        .draw-tool-btn {
+            background: transparent; color: var(--text-primary); border: none;
+            font-size: 24px; width: 45px; height: 45px; border-radius: 50%;
+            cursor: pointer; display: flex; justify-content: center; align-items: center;
+        }
+        .draw-tool-btn:active { background: var(--bg-hover); }
+        .premium-color-btn {
+            width: 35px; height: 35px; border-radius: 50%;
+            border: 2px solid white; box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            cursor: pointer; display: flex; justify-content: center; align-items: center; overflow: hidden;
+        }
+        .premium-color-btn.bg-btn { border: 2px dashed var(--text-secondary); background: transparent; }
+
+        /* ===== COLOR DRAWER ===== */
+        .color-drawer-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 100;
+            display: none; backdrop-filter: blur(4px); opacity: 0; transition: opacity 0.2s;
+        }
+        .color-drawer-overlay.active { display: block; opacity: 1; }
+        .color-drawer {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            background: var(--bg-surface); padding: 25px 20px;
+            border-top-left-radius: 24px; border-top-right-radius: 24px;
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-top: 1px solid var(--border-color);
+        }
+        .color-drawer-overlay.active .color-drawer { transform: translateY(0); }
+        .color-drawer h3 { margin-top: 0; color: var(--text-primary); font-size: 18px; margin-bottom: 20px; }
+        .color-grid {
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; margin-bottom: 20px;
+        }
+        .color-swatch {
+            width: 45px; height: 45px; border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.2); cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: transform 0.2s;
+        }
+        .color-swatch:active { transform: scale(0.85); }
+        .custom-hex-input {
+            width: 100%; padding: 12px; background: var(--bg-main);
+            border: 1px solid var(--border-color); color: var(--text-primary);
+            border-radius: 10px; font-family: monospace; outline: none; margin-bottom: 10px;
+        }
+
+        /* ===== RICH TEXT ===== */
+        .rt-toolbar {
+            display: flex; gap: 10px; background: var(--bg-surface);
+            padding: 12px 15px; overflow-x: auto; border-bottom: 1px solid var(--border-color);
+            align-items: center;
+        }
+        .rt-toolbar::-webkit-scrollbar { display: none; }
+        .rt-tool-btn {
+            background: var(--bg-main); color: var(--text-primary);
+            border: 1px solid var(--border-color); padding: 8px 14px; border-radius: 10px;
+            font-size: 18px; cursor: pointer; white-space: nowrap; transition: 0.2s;
+        }
+        .rt-tool-btn:active { background: var(--bg-hover); transform: scale(0.95); }
+        .rt-tool-btn.active {
+            background: var(--accent-gradient); color: #ffffff;
+            border-color: transparent; box-shadow: 0 2px 10px rgba(59,130,246,0.4);
+        }
+        .rt-editor-area {
+            flex: 1; padding: 25px 20px; background: var(--bg-main);
+            color: var(--text-primary); font-size: 16px; outline: none;
+            overflow-y: auto; line-height: 1.6; font-weight: 500;
+        }
+        .rt-editor-area:empty:before {
+            content: "Start writing premium rich text here...";
+            color: var(--text-secondary);
+        }
+
+        /* ===== SPREADSHEET ===== */
+        .sheet-toolbar {
+            display: flex; gap: 10px; padding: 12px 15px;
+            background: var(--bg-surface); border-bottom: 1px solid var(--border-color);
+        }
+        .sheet-wrapper { flex: 1; overflow: auto; padding: 15px; background: var(--bg-main); }
+        .sheet-table {
+            width: max-content; border-collapse: collapse; background: var(--bg-surface);
+            border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .sheet-table td, .sheet-table th {
+            border: 1px solid var(--border-color); padding: 10px; min-width: 100px;
+            text-align: center; outline: none; color: var(--text-primary); font-size: 14px;
+        }
+        .sheet-table th { background: var(--bg-hover); font-weight: 700; color: var(--accent-primary); }
+        .sheet-table td:focus { background: rgba(59, 130, 246, 0.1); border: 1px solid var(--accent-primary); }
+
+        /* ===== INVOICE ===== */
+        .invoice-wrapper { flex: 1; padding: 20px; overflow-y: auto; background: var(--bg-main); }
+        .invoice-box {
+            background: var(--glass-bg); padding: 25px 20px; border-radius: 16px;
+            border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .inv-header-inputs {
+            display: flex; justify-content: space-between; margin-bottom: 20px; gap: 10px;
+        }
+        .inv-input {
+            background: var(--bg-main); border: 1px solid var(--border-color);
+            color: var(--text-primary); padding: 10px; border-radius: 8px; outline: none;
+        }
+        .inv-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+        .inv-table th {
+            text-align: left; padding: 8px; color: var(--text-secondary);
+            font-size: 12px; border-bottom: 1px solid var(--border-color);
+        }
+        .inv-table td { padding: 8px 4px; }
+        .inv-cell-input {
+            width: 100%; background: transparent; border: none;
+            border-bottom: 1px solid var(--border-color); color: var(--text-primary);
+            font-size: 14px; outline: none; padding: 5px 0;
+        }
+        .inv-total-row {
+            display: flex; justify-content: space-between; font-size: 20px;
+            font-weight: 700; color: var(--accent-primary);
+            margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border-color);
+        }
+        .calc-modal {
+            position: fixed; top: 150px; left: 50%; transform: translateX(-50%);
+            background: var(--glass-bg); backdrop-filter: blur(20px);
+            padding: 15px; border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            border: 1px solid var(--border-color); display: none; width: 260px; z-index: 100;
+        }
+        .calc-modal.active { display: block; }
+        .calc-header {
+            color: var(--text-secondary); font-size: 14px; font-weight: 600;
+            margin-bottom: 15px; display: flex; justify-content: space-between;
+            align-items: center; cursor: move; padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .calc-display {
+            background: var(--bg-main); padding: 12px; border-radius: 8px;
+            text-align: right; color: white; font-size: 24px; margin-bottom: 15px;
+            border: 1px solid var(--border-color); overflow: hidden; letter-spacing: 1px;
+        }
+        .calc-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+        }
+        .calc-btn {
+            background: var(--bg-surface); color: var(--text-primary);
+            border: 1px solid var(--border-color); padding: 15px 0;
+            border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.2s;
+        }
+        .calc-btn:active { transform: scale(0.9); }
+        .calc-btn.accent { background: var(--accent-gradient); color: white; border: none; }
+        .calc-btn.special { background: var(--bg-hover); color: var(--accent-primary); }
+
+        /* ===== INVOICE RENDER IN CHAT ===== */
+        .msg-invoice-card {
+            background: var(--glass-bg); padding: 20px; border-radius: 16px;
+            margin-top: 5px; border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .msg-invoice-card h4 {
+            margin: 0 0 15px 0; font-size: 18px; color: var(--accent-primary);
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px;
+        }
+        .msg-invoice-card table { width: 100%; font-size: 14px; border-collapse: collapse; margin-bottom: 15px; }
+        .msg-invoice-card th { text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; color: var(--text-secondary); }
+        .msg-invoice-card td { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .msg-invoice-total { text-align: right; font-weight: 800; font-size: 20px; color: white; }
+        .msg-sheet-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 5px; }
+        .msg-sheet-table td, .msg-sheet-table th { border: 1px solid rgba(255,255,255,0.1); padding: 6px; }
+
+        /* ===== INFO MODAL ===== */
+        .info-modal {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--bg-main); z-index: 40;
+            display: flex; flex-direction: column;
+            transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .info-modal.active { transform: translateX(0); }
+        .info-header {
+            flex-shrink: 0; display: flex; align-items: center;
+            padding: 15px 20px; background: transparent; height: 70px; z-index: 2;
+        }
+        .info-header .back-btn { color: var(--text-primary); font-size: 24px; cursor: pointer; padding: 5px; }
+        .info-content { flex: 1; overflow-y: auto; padding-bottom: 30px; margin-top: -70px; }
+        .info-hero {
+            display: flex; flex-direction: column; align-items: center;
+            padding: 70px 20px 30px 20px; background: var(--glass-bg);
+            border-bottom: 1px solid var(--border-color); margin-bottom: 20px;
+        }
+        .info-big-avatar {
+            width: 120px; height: 120px; border-radius: 30px;
+            display: flex; justify-content: center; align-items: center;
+            color: white; font-size: 55px; margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3); position: relative; cursor: pointer;
+        }
+        .info-big-avatar-inner {
+            width: 100%; height: 100%; border-radius: 30px;
+            overflow: hidden; display: flex; justify-content: center; align-items: center;
+        }
+        .info-big-avatar-inner img { width: 100%; height: 100%; object-fit: cover; }
+        .info-big-avatar .camera-icon {
+            position: absolute; bottom: -5px; right: -5px;
+            background: var(--accent-primary); width: 38px; height: 38px;
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            font-size: 18px; border: 3px solid var(--bg-surface); color: white;
+        }
+        .info-name {
+            color: var(--text-primary); font-size: 26px; font-weight: 700;
+            margin-bottom: 5px; display: flex; align-items: center; gap: 8px; letter-spacing: -0.5px;
+        }
+
+        /* ===== SETTINGS ===== */
+        .settings-modal {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--bg-chat); z-index: 40;
+            display: flex; flex-direction: column;
+            transform: translateX(100%); opacity: 0;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        }
+        .settings-modal.active { transform: translateX(0); opacity: 1; }
+        .settings-header {
+            padding: 18px 20px; display: flex; align-items: center; gap: 15px;
+            flex-shrink: 0; background: var(--glass-bg); backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .settings-header i.back-arrow { font-size: 24px; color: var(--text-primary); cursor: pointer; padding: 4px; }
+        .settings-header .settings-title {
+            color: var(--text-primary); font-size: 20px; font-weight: 700; letter-spacing: -0.3px;
+        }
+        .settings-body { flex-grow: 1; overflow-y: auto; padding: 22px 20px 40px 20px; }
+        .settings-body::-webkit-scrollbar { display: none; }
+        .settings-section-label {
+            color: var(--text-secondary); font-size: 12px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.8px; margin: 22px 4px 10px 4px;
+        }
+        .settings-section-label:first-child { margin-top: 0; }
+        .settings-profile-card {
+            display: flex; align-items: center; gap: 15px; padding: 18px;
+            border-radius: 22px; margin-bottom: 4px;
+            background: var(--accent-gradient); box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+            position: relative; overflow: hidden;
+        }
+        .settings-profile-card i.profile-diamond { font-size: 32px; color: rgba(255,255,255,0.95); }
+        .settings-profile-card .profile-info b { color: #fff; font-size: 17px; font-weight: 700; display: block; }
+        .settings-profile-card .profile-info span { color: rgba(255,255,255,0.85); font-size: 12.5px; font-weight: 600; }
+
+        .settings-container { padding: 0 20px; display: flex; flex-direction: column; gap: 20px; }
+        .settings-group {
+            background: var(--glass-bg); border-radius: 20px;
+            border: 1px solid var(--border-color); overflow: hidden;
+        }
+        .premium-setting-item {
+            display: flex; align-items: center; padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color); cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .premium-setting-item:hover { background-color: var(--bg-hover); }
+        .premium-setting-item:last-child { border-bottom: none; }
+        .setting-icon-box {
+            width: 38px; height: 38px; border-radius: 12px;
+            display: flex; justify-content: center; align-items: center;
+            margin-right: 15px; color: white; font-size: 20px;
+        }
+        .setting-icon-box.blue { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .setting-icon-box.green { background: linear-gradient(135deg, #10b981, #059669); }
+        .setting-icon-box.red { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .setting-icon-box.yellow { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .setting-icon-box.purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .premium-setting-item .text { flex: 1; color: var(--text-primary); font-size: 16px; font-weight: 600; }
+        .premium-setting-item.danger .text { color: #ef4444; }
+
+        /* ===== CUSTOM MODAL ===== */
+        .custom-modal-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 100;
+            display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px);
+        }
+        .custom-modal-overlay.active { display: flex; }
+        .custom-modal-box {
+            background: var(--bg-surface); width: 85%; max-width: 340px;
+            border-radius: 24px; padding: 30px 25px; text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            border: 1px solid var(--border-color);
+            transform: scale(0.9); opacity: 0;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .custom-modal-overlay.active .custom-modal-box { transform: scale(1); opacity: 1; }
+        .custom-modal-box h3 {
+            color: var(--text-primary); margin-top: 0; margin-bottom: 15px;
+            font-size: 20px; font-weight: 700; letter-spacing: -0.5px;
+        }
+        .custom-modal-box p {
+            color: var(--text-secondary); margin-bottom: 25px; line-height: 1.5; font-weight: 500;
+        }
+        .custom-modal-input {
+            width: 100%; box-sizing: border-box; padding: 14px; margin-bottom: 20px;
+            background-color: var(--bg-main); border: 1px solid var(--border-color);
+            border-radius: 12px; color: var(--text-primary); font-size: 16px;
+            outline: none; resize: vertical; font-weight: 500; font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .custom-modal-btns { display: flex; flex-direction: column; gap: 12px; }
+        .custom-modal-btns-row { display: flex; gap: 12px; }
+        .custom-modal-btns-row button { flex: 1; }
+        .c-btn {
+            padding: 14px; border: none; border-radius: 12px; font-size: 16px;
+            font-weight: 600; cursor: pointer; transition: 0.2s;
+        }
+        .c-btn:active { transform: scale(0.95); }
+        .btn-blue { background: var(--accent-gradient); color: #fff; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
+        .btn-red { background: #ef4444; color: #fff; }
+        .btn-gray { background: var(--bg-main); color: var(--text-primary); border: 1px solid var(--border-color); }
+
+        /* ===== TOGGLE ===== */
+        .theme-switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+        .theme-switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--border-color); transition: .4s; border-radius: 26px;
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 20px; width: 20px;
+            left: 3px; bottom: 3px; background-color: white;
+            transition: .4s; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        input:checked + .slider { background-color: var(--accent-primary); }
+        input:checked + .slider:before { transform: translateX(24px); }
+
+        /* ===== RIPPLE ===== */
+        .ripple-holder { position: relative; overflow: hidden; }
+        .ripple-circle {
+            position: absolute; border-radius: 50%; transform: scale(0);
+            background: rgba(255,255,255,0.45); pointer-events: none;
+            animation: ripple-anim 0.6s cubic-bezier(0.4,0,0.2,1); z-index: 5;
+        }
+        body.light-mode .ripple-circle { background: rgba(0,0,0,0.12); }
+        @keyframes ripple-anim { to { transform: scale(2.6); opacity: 0; } }
+
+        /* ===== SCROLL BOTTOM BTN ===== */
+        .scroll-bottom-btn {
+            position: absolute; right: 18px; bottom: 100px; width: 44px; height: 44px;
+            border-radius: 50%; background: var(--glass-bg); backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color); color: var(--text-primary);
+            display: flex; align-items: center; justify-content: center; font-size: 20px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.3); z-index: 15; cursor: pointer;
+            opacity: 0; pointer-events: none; transform: translateY(10px) scale(0.85);
+            transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.175,0.885,0.32,1.275);
+        }
+        .scroll-bottom-btn.show { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+
+        /* ===== EXPANDABLE ===== */
+        .msg-text-clamped { display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
+        .msg-expand-btn {
+            display: inline-flex; align-items: center; gap: 4px; margin-top: 6px;
+            font-size: 13px; font-weight: 700; color: var(--accent-primary);
+            cursor: pointer; pointer-events: auto; -webkit-user-select:none; user-select:none;
+        }
+
+        /* ===== CODE ===== */
+        .rich-text-content pre code, .message pre code {
+            font-family: 'SFMono-Regular', Consolas, 'Courier New', monospace;
+            font-size: 13px; border-radius: 8px; display: block; padding: 8px 12px;
+        }
+        .code-lang-tag {
+            position: absolute; top: 6px; right: 10px; font-size: 10px; font-weight: 700;
+            letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-secondary);
+            background: rgba(0,0,0,0.35); padding: 2px 8px; border-radius: 6px; pointer-events: none;
+        }
+        .code-copy-btn {
+            position: absolute; top: 6px; left: 10px; font-size: 12px; font-weight: 600;
+            color: var(--text-secondary); background: rgba(0,0,0,0.35);
+            padding: 2px 10px; border-radius: 6px; border: none; cursor: pointer;
+            pointer-events: auto; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;
+            letter-spacing: 0.3px; z-index: 2;
+        }
+        .code-copy-btn:active { transform: scale(0.92); }
+        .code-copy-btn.copied { color: #34d399; }
+
+        /* ===== NATIVE SHEET ===== */
+        .native-sheet-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.55); z-index: 110;
+            display: none; align-items: flex-end; justify-content: center;
+            backdrop-filter: blur(3px); opacity: 0; transition: opacity 0.2s ease;
+        }
+        .native-sheet-overlay.active { display: flex; opacity: 1; }
+        .native-sheet {
+            width: 100%; max-width: 450px; background: var(--bg-surface);
+            border-top-left-radius: 26px; border-top-right-radius: 26px;
+            padding: 10px 18px 26px 18px; transform: translateY(100%);
+            transition: transform 0.32s cubic-bezier(0.175,0.885,0.32,1.275);
+            border-top: 1px solid var(--border-color);
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.4); max-height: 75vh; overflow-y: auto;
+        }
+        .native-sheet-overlay.active .native-sheet { transform: translateY(0); }
+        .native-sheet-handle { width: 40px; height: 5px; border-radius: 3px; background: var(--border-color); margin: 6px auto 16px auto; }
+        .native-sheet h3 { color: var(--text-primary); font-size: 18px; font-weight: 700; margin: 0 0 16px 4px; letter-spacing: -0.3px; }
+        .native-sheet-option {
+            display: flex; align-items: center; gap: 14px; padding: 14px 12px;
+            border-radius: 16px; cursor: pointer; color: var(--text-primary);
+            font-size: 16px; font-weight: 600; transition: background 0.2s ease;
+        }
+        .native-sheet-option:active { background: var(--bg-hover); }
+        .native-sheet-option i.opt-check { margin-left: auto; color: var(--accent-primary); font-size: 20px; }
+        .native-sheet-option .opt-swatch { width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+
+        /* ===== THEME GRID ===== */
+        .theme-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+        .theme-swatch-card {
+            border-radius: 18px; padding: 16px 14px; cursor: pointer;
+            border: 2px solid transparent; display: flex; flex-direction: column; gap: 10px;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        .theme-swatch-card:active { transform: scale(0.96); }
+        .theme-swatch-card.selected { border-color: var(--accent-primary); }
+        .theme-swatch-dots { display: flex; gap: 6px; }
+        .theme-swatch-dots span { width: 16px; height: 16px; border-radius: 50%; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+        .theme-swatch-card b { font-size: 13.5px; color: var(--text-primary); }
+        .lang-flag { font-size: 20px; width: 26px; text-align: center; }
+
+        /* ===== RESPONSIVE TOUCH ===== */
+        .circle-btn, .fab-item, .c-btn, .send-btn, .draw-tool-btn, .rt-tool-btn, .calc-btn {
+            touch-action: manipulation;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <!-- HEADER -->
+    <header>
+        <div class="top-bar">
+            <h1><i class="ph-fill ph-diamond" style="color: var(--accent-primary); font-size: 20px;"></i> Plush Notes</h1>
+            <div class="menu-trigger-btn" onclick="openMainSettings()"><i class="ph ph-list"></i></div>
+        </div>
+        <div class="hero-section">
+            <h1 class="hero-title" id="greeting-title">Good Morning.</h1>
+            <p class="hero-subtitle" id="greeting-sub">You have amazing notes waiting.</p>
+        </div>
+        <div class="search-bar">
+            <i class="ph ph-magnifying-glass"></i>
+            <input type="text" placeholder="Search your premium notes..." oninput="renderNotesList(this.value)">
+        </div>
+    </header>
+
+    <!-- NOTES LIST -->
+    <div class="notes-list" id="notes-container"></div>
+
+    <!-- CIRCULAR MENU -->
+    <div id="circular-menu" class="circular-menu-overlay">
+        <div class="circle-menu-center" id="cm-center">
+            <i class="ph ph-dots-three" style="color:var(--text-primary); font-size: 26px;"></i>
+            <div class="circle-btn c-pin" data-action="pin"><i class="ph ph-push-pin"></i></div>
+            <div class="circle-btn c-dup" data-action="dup"><i class="ph ph-copy"></i></div>
+            <div class="circle-btn c-color" data-action="color"><i class="ph ph-palette"></i></div>
+            <div class="circle-btn c-share" data-action="share"><i class="ph ph-share-network"></i></div>
+            <div class="circle-btn c-hide" data-action="hide"><i class="ph ph-eye-slash"></i></div>
+            <div class="circle-btn c-del" data-action="del"><i class="ph ph-trash"></i></div>
+        </div>
+    </div>
+
+    <!-- FAB MENU -->
+    <div class="fab-menu" id="fab-menu">
+        <div class="fab-item" onclick="triggerAction('sheet')"><i class="ph ph-grid-four"></i> Spreadsheet</div>
+        <div class="fab-item" onclick="triggerAction('invoice')"><i class="ph ph-receipt"></i> Invoice</div>
+        <div class="fab-item" onclick="triggerAction('richtext')"><i class="ph ph-text-t"></i> Rich Text</div>
+        <div class="fab-item" onclick="triggerAction('drawing')"><i class="ph ph-paint-brush"></i> Drawing</div>
+        <div class="fab-item" onclick="triggerAction('image')"><i class="ph ph-image"></i> Image</div>
+        <div class="fab-item" onclick="triggerAction('list')"><i class="ph ph-list-bullets"></i> List</div>
+        <div class="fab-item" onclick="triggerAction('text')"><i class="ph ph-text-aa"></i> Text</div>
+    </div>
+
+    <div class="bottom-app-bar">
+        <div class="fab-wrapper">
+            <button class="fab-btn" id="main-fab" onclick="toggleFabMenu()"><i class="ph ph-plus"></i></button>
+        </div>
+    </div>
+
+    <!-- FILE INPUTS -->
+    <input type="file" id="image-upload" accept="image/*" style="display: none;" onchange="openImagePreviewOverlay(event)">
+    <input type="file" id="wallpaper-upload" accept="image/*" style="display: none;" onchange="handleWallpaperUpload(event)">
+    <input type="file" id="chat-image-upload" accept="image/*" style="display: none;" onchange="openImagePreviewOverlay(event)">
+
+    <!-- CHAT MODAL -->
+    <div class="chat-modal" id="chat-modal">
+        <div class="chat-header">
+            <i class="ph ph-arrow-left back-btn" onclick="popUI()"></i>
+            <div class="chat-profile-area" onclick="openInfoSettings()">
+                <div class="chat-header-avatar" id="chat-header-avatar"></div>
+                <div id="chat-title" class="chat-title-text">New Note</div>
+            </div>
+        </div>
+        <div class="chat-body" id="chat-body" onclick="closeAttachMenu()"></div>
+        <div class="scroll-bottom-btn" id="scroll-bottom-btn" onclick="scrollToBottom(true)"><i class="ph-fill ph-arrow-down"></i></div>
+
+        <div class="fab-menu" id="chat-attach-menu" style="bottom: 80px; left: 20px; right: auto; align-items: flex-start; transform-origin: bottom left;">
+            <div class="fab-item" onclick="triggerChatAction('sheet')"><i class="ph ph-grid-four"></i> Spreadsheet</div>
+            <div class="fab-item" onclick="triggerChatAction('invoice')"><i class="ph ph-receipt"></i> Invoice</div>
+            <div class="fab-item" onclick="triggerChatAction('richtext')"><i class="ph ph-text-t"></i> Rich Text</div>
+            <div class="fab-item" onclick="triggerChatAction('drawing')"><i class="ph ph-paint-brush"></i> Drawing</div>
+            <div class="fab-item" onclick="triggerChatAction('list')"><i class="ph ph-list-bullets"></i> List</div>
+            <div class="fab-item" onclick="triggerChatAction('image')"><i class="ph ph-image"></i> Photo</div>
+        </div>
+
+        <div class="chat-footer">
+            <div class="reply-banner" id="reply-banner">
+                <div class="reply-banner-content" id="reply-banner-text">Replying to...</div>
+                <i class="ph ph-x reply-banner-close" onclick="cancelReply()"></i>
+            </div>
+            <div class="chat-input-area">
+                <i class="ph ph-paperclip attach-btn" onclick="toggleAttachMenu()"></i>
+                <div class="chat-input-wrapper">
+                    <textarea id="chat-input" placeholder="Type a note..." rows="1" oninput="autoResize(this)"></textarea>
+                </div>
+                <button class="send-btn" onclick="sendTextMessage()"><i class="ph-fill ph-paper-plane-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FULLSCREEN VIEWER -->
+    <div class="fullscreen-viewer" id="fullscreen-viewer">
+        <div class="overlay-header">
+            <i class="ph ph-arrow-left" onclick="popUI()"></i>
+            <span>Image Viewer</span>
+            <i class="ph ph-pencil-simple" onclick="editFullscreenImage()"></i>
+        </div>
+        <div class="fullscreen-image-wrapper">
+            <img id="fullscreen-image" src="">
+        </div>
+    </div>
+
+    <!-- PREVIEW OVERLAY -->
+    <div class="preview-overlay" id="preview-overlay">
+        <div class="overlay-header">
+            <i class="ph ph-arrow-left" onclick="popUI()"></i>
+            <span>Preview</span>
+            <i class="ph ph-pencil-simple" onclick="editPreviewImage()" style="margin-left: auto;"></i>
+        </div>
+        <div class="preview-content"><img id="preview-image-src" src=""></div>
+        <div class="preview-footer">
+            <div class="chat-input-wrapper" style="border-radius: 12px; background: var(--bg-hover);">
+                <textarea id="preview-caption-input" placeholder="Add a caption..." rows="1" oninput="autoResize(this)"></textarea>
+            </div>
+            <button class="send-btn" onclick="sendPreviewImage()"><i class="ph-fill ph-paper-plane-right"></i></button>
+        </div>
+    </div>
+
+    <!-- DRAWING OVERLAY -->
+    <div class="draw-overlay" id="draw-overlay">
+        <div class="overlay-header">
+            <i class="ph ph-x" onclick="popUI()"></i>
+            <span>Draw & Edit</span>
+            <i class="ph ph-check" onclick="saveDrawing()"></i>
+        </div>
+        <div class="draw-area-container" id="draw-container">
+            <canvas id="draw-canvas"></canvas>
+            <div id="text-overlay-container"></div>
+        </div>
+        <div class="draw-toolbar">
+            <div class="premium-color-btn bg-btn" onclick="openColorDrawer('bg')" title="Background Color"><i class="ph-fill ph-drop" style="color:var(--text-primary); font-size:18px;"></i></div>
+            <div class="premium-color-btn" id="active-pen-color-btn" style="background:#ff3b30" onclick="openColorDrawer('pen')" title="Pen Color"></div>
+            <input type="range" id="draw-size" min="1" max="25" value="4">
+            <button class="draw-tool-btn" onclick="addTextToCanvasPrompt()"><i class="ph ph-text-aa"></i></button>
+            <button class="draw-tool-btn" id="eraser-btn" onclick="toggleEraser()"><i class="ph ph-eraser"></i></button>
+            <button class="draw-tool-btn" onclick="undoDraw()"><i class="ph ph-arrow-u-up-left"></i></button>
+            <button class="draw-tool-btn" onclick="redoDraw()"><i class="ph ph-arrow-u-up-right"></i></button>
+        </div>
+    </div>
+
+    <!-- COLOR DRAWER -->
+    <div class="color-drawer-overlay" id="color-drawer">
+        <div class="color-drawer">
+            <h3>Select Color</h3>
+            <div class="color-grid" id="color-presets"></div>
+            <div style="display:flex; gap:10px; align-items:center;">
+                <input type="text" id="custom-hex" class="custom-hex-input" placeholder="#HEXCODE">
+                <button class="c-btn btn-blue" style="padding:10px; margin-bottom:10px;" onclick="applyCustomHex()">Set</button>
+            </div>
+            <button class="c-btn btn-gray" style="width:100%" onclick="closeColorDrawer()">Close</button>
+        </div>
+    </div>
+
+    <!-- RICH TEXT OVERLAY -->
+    <div class="rt-overlay" id="rt-overlay">
+        <div class="overlay-header">
+            <i class="ph ph-x" onclick="popUI()"></i>
+            <span>Rich Text Note</span>
+            <i class="ph ph-check" onclick="saveRichText()"></i>
+        </div>
+        <div class="rt-toolbar">
+            <button class="rt-tool-btn" id="rt-font-btn" onclick="openFontPickerSheet()"><i class="ph ph-text-aa"></i></button>
+            <button class="rt-tool-btn" id="rt-bold-btn" onclick="execCmd('bold')"><b>B</b></button>
+            <button class="rt-tool-btn" id="rt-italic-btn" onclick="execCmd('italic')"><i>I</i></button>
+            <button class="rt-tool-btn" id="rt-underline-btn" onclick="execCmd('underline')"><u>U</u></button>
+            <button class="rt-tool-btn" id="rt-h-btn" onclick="execCmd('formatBlock', 'H3')"><b>H</b></button>
+            <button class="rt-tool-btn" id="rt-ul-btn" onclick="execCmd('insertUnorderedList')"><i class="ph ph-list-bullets"></i></button>
+            <button class="rt-tool-btn" id="rt-ol-btn" onclick="execCmd('insertOrderedList')"><i class="ph ph-list-numbers"></i></button>
+            <button class="rt-tool-btn" onclick="insertChecklist()"><i class="ph ph-check-square"></i></button>
+            <button class="rt-tool-btn" onclick="insertTable()"><i class="ph ph-table"></i></button>
+            <button class="rt-tool-btn" onclick="insertCodeBlock()"><i class="ph ph-code"></i></button>
+        </div>
+        <div class="rt-editor-area" id="rt-editor-area" contenteditable="true"></div>
+    </div>
+
+    <!-- SPREADSHEET OVERLAY -->
+    <div class="sheet-overlay" id="sheet-overlay">
+        <div class="overlay-header">
+            <i class="ph ph-x" onclick="popUI()"></i>
+            <span>Excel Spreadsheet</span>
+            <i class="ph ph-check" onclick="saveSpreadsheet()"></i>
+        </div>
+        <div class="sheet-toolbar">
+            <button class="c-btn btn-gray" style="padding: 8px 15px;" onclick="addSheetRow()"><i class="ph ph-rows"></i> + Row</button>
+            <button class="c-btn btn-gray" style="padding: 8px 15px;" onclick="addSheetCol()"><i class="ph ph-columns"></i> + Column</button>
+        </div>
+        <div class="sheet-wrapper">
+            <table class="sheet-table" id="main-sheet-table">
+                <tbody>
+                    <tr><th>A</th><th>B</th><th>C</th></tr>
+                    <tr><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                    <tr><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                    <tr><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- INVOICE OVERLAY -->
+    <div class="invoice-overlay" id="invoice-overlay">
+        <div class="overlay-header">
+            <i class="ph ph-x" onclick="popUI()"></i>
+            <span>Billing Invoice</span>
+            <div style="display:flex; gap:15px;">
+                <i class="ph-fill ph-calculator" style="color:var(--accent-primary)" onclick="toggleCalculator()"></i>
+                <i class="ph ph-check" onclick="saveInvoice()"></i>
+            </div>
+        </div>
+        <div class="invoice-wrapper">
+            <div class="invoice-box">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+                    <h3 style="margin:0; color:var(--text-primary);">Invoice Details</h3>
+                    <button type="button" class="c-btn btn-gray" id="inv-currency-btn" data-value="₹" style="width:auto; padding:8px 14px; font-size:14px;" onclick="openCurrencyPickerSheet()">₹ INR <i class="ph ph-caret-down" style="margin-left:6px;"></i></button>
+                </div>
+                <div class="inv-header-inputs">
+                    <input type="text" id="inv-client" class="inv-input" placeholder="Client Name">
+                    <input type="date" id="inv-date" class="inv-input" style="width:140px;">
+                </div>
+                <table class="inv-table" id="inv-item-table">
+                    <thead>
+                        <tr><th>Item</th><th width="50">Qty</th><th width="70">Price</th><th width="80">Total</th></tr>
+                    </thead>
+                    <tbody id="inv-tbody"></tbody>
+                </table>
+                <button class="c-btn btn-gray" style="width:100%; margin-bottom:15px;" onclick="addInvoiceItem()">+ Add Item</button>
+                <div style="text-align: right; color:var(--text-secondary); font-size:14px;">
+                    Tax %: <input type="number" id="inv-tax" value="0" class="inv-input" style="width:60px; display:inline-block; padding:5px;" oninput="calculateInvoice()">
+                </div>
+                <div class="inv-total-row">
+                    <span>Grand Total</span>
+                    <span id="inv-grand-total">₹ 0.00</span>
+                </div>
+            </div>
+        </div>
+        <!-- CALCULATOR -->
+        <div class="calc-modal" id="calc-modal">
+            <div class="calc-header" id="calc-header">
+                <span><i class="ph-fill ph-calculator"></i> Calculator</span>
+                <i class="ph ph-x" style="cursor:pointer;" onclick="toggleCalculator()"></i>
+            </div>
+            <div class="calc-display" id="calc-display">0</div>
+            <div class="calc-grid">
+                <button class="calc-btn special" onclick="calcInput('%')">%</button><button class="calc-btn" onclick="calcInput('(')">(</button><button class="calc-btn" onclick="calcInput(')')">)</button><button class="calc-btn accent" onclick="calcInput('/')">÷</button>
+                <button class="calc-btn" onclick="calcInput('7')">7</button><button class="calc-btn" onclick="calcInput('8')">8</button><button class="calc-btn" onclick="calcInput('9')">9</button><button class="calc-btn accent" onclick="calcInput('*')">×</button>
+                <button class="calc-btn" onclick="calcInput('4')">4</button><button class="calc-btn" onclick="calcInput('5')">5</button><button class="calc-btn" onclick="calcInput('6')">6</button><button class="calc-btn accent" onclick="calcInput('-')">-</button>
+                <button class="calc-btn" onclick="calcInput('1')">1</button><button class="calc-btn" onclick="calcInput('2')">2</button><button class="calc-btn" onclick="calcInput('3')">3</button><button class="calc-btn accent" onclick="calcInput('+')">+</button>
+                <button class="calc-btn" onclick="calcInput('C')">C</button><button class="calc-btn" onclick="calcInput('0')">0</button><button class="calc-btn" onclick="calcInput('.')">.</button><button class="calc-btn accent" onclick="calcInput('=')">=</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- INFO MODAL -->
+    <div class="info-modal" id="info-modal">
+        <div class="info-header">
+            <i class="ph ph-arrow-left back-btn" onclick="popUI()"></i>
+        </div>
+        <div class="info-content">
+            <div class="info-hero">
+                <div class="info-big-avatar" id="info-big-avatar" onclick="document.getElementById('image-upload').click()">
+                    <div class="info-big-avatar-inner" id="info-big-avatar-inner"></div>
+                    <div class="camera-icon" id="info-camera-icon"><i class="ph ph-camera"></i></div>
+                </div>
+                <div class="info-name" id="info-name-display">Name</div>
+                <div class="info-sub" id="info-sub-display" style="color: var(--text-secondary); font-weight: 500;">Plush Notes File</div>
+            </div>
+            <div class="settings-container">
+                <div class="settings-group" id="normal-settings">
+                    <div class="premium-setting-item" onclick="showTitleEditInput()">
+                        <div class="setting-icon-box blue"><i class="ph ph-pencil-simple"></i></div>
+                        <div class="text">Change File Name</div>
+                    </div>
+                    <div class="premium-setting-item" onclick="document.getElementById('wallpaper-upload').click()">
+                        <div class="setting-icon-box green"><i class="ph ph-image"></i></div>
+                        <div class="text">Set Custom Wallpaper</div>
+                    </div>
+                </div>
+                <div class="settings-group" id="normal-danger-settings">
+                    <div class="premium-setting-item danger" onclick="removeWallpaper()">
+                        <div class="setting-icon-box red"><i class="ph ph-trash"></i></div>
+                        <div class="text">Remove Wallpaper</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOM MODAL -->
+    <div class="custom-modal-overlay" id="custom-modal">
+        <div class="custom-modal-box" id="modal-content"></div>
+    </div>
+
+    <!-- NATIVE SHEET -->
+    <div class="native-sheet-overlay" id="native-sheet" onclick="if(event.target===this) popUI();">
+        <div class="native-sheet">
+            <div class="native-sheet-handle"></div>
+            <h3 id="native-sheet-title">Select</h3>
+            <div id="native-sheet-body"></div>
+        </div>
+    </div>
+
+    <!-- SETTINGS MODAL -->
+    <div class="settings-modal" id="settings-modal">
+        <div class="settings-header">
+            <i class="ph ph-arrow-left back-arrow" onclick="popUI()"></i>
+            <div class="settings-title">Settings</div>
+        </div>
+        <div class="settings-body" id="settings-body"></div>
+    </div>
+</div>
+
+<script>
+    // ================================================================
+    //  GLOBALS
+    // ================================================================
+    const DB_NAME = 'plushNotesDB';
+    const STORE_NAME = 'notesStore';
+    let db;
+    let notes = [];
+    let currentNoteId = null;
+    let selectedMsgId = null;
+    let replyingToMsg = null;
+    let tempImageData = null;
+    let isAutoBackupEnabled = true;
+    let calcExpr = "";
+    let uiStack = [];
+    let menuOpenGuardUntil = 0;
+    let activeCircleNoteId = null;
+    let pressTimer;
+    let editSheetMsgId = null;
+    let editInvoiceMsgId = null;
+
+    // ================================================================
+    //  DEFAULT NOTES
+    // ================================================================
+    let defaultNotes = [
+        { id: 1, title: "Ideas for Project", icon: "ph-fill ph-lightbulb", color: "transparent", avatarGrad: "linear-gradient(135deg, #3b82f6, #6366f1)", isPinned: true, isHidden: false, image: null, wallpaper: null, time: "7:51 PM", messages: [{ id: 101, type: 'text', content: "Need to integrate a new API.", time: "7:50 PM" }] },
+        { id: 2, title: "Shopping List", icon: "ph-fill ph-shopping-cart", color: "transparent", avatarGrad: "linear-gradient(135deg, #10b981, #047857)", isPinned: false, isHidden: false, image: null, wallpaper: null, time: "12:15 PM", messages: [{ id: 102, type: 'text', content: "• Milk\n• Eggs\n• Bread", time: "12:15 PM" }] }
+    ];
+
+    // ================================================================
+    //  HELPERS
+    // ================================================================
+    function escapeHTML(str) { if (!str) return ''; return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag])); }
+    function getCurrentTime() { const now = new Date(); let h = now.getHours(); let m = now.getMinutes(); const ampm = h >= 12 ? 'PM' : 'AM'; h = h % 12; h = h ? h : 12; m = m < 10 ? '0'+m : m; return h + ':' + m + ' ' + ampm; }
+    function autoResize(t) { t.style.height = '24px'; t.style.height = Math.max(24, Math.min(t.scrollHeight, 100)) + 'px'; }
+    function scrollToBottom(smooth) { const b = document.getElementById('chat-body'); if (smooth) { b.scrollTo({ top: b.scrollHeight, behavior: 'smooth' }); } else { b.scrollTop = b.scrollHeight; } }
+
+    // ================================================================
+    //  INDEXEDDB
+    // ================================================================
+    function initDB() {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open(DB_NAME, 1);
+            request.onerror = (e) => reject("Error opening DB");
+            request.onsuccess = (e) => { db = e.target.result; resolve(db); };
+            request.onupgradeneeded = (e) => { db = e.target.result; if (!db.objectStoreNames.contains(STORE_NAME)) { db.createObjectStore(STORE_NAME); } };
+        });
+    }
+    function saveLocalData() {
+        if (!db) return;
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        const store = tx.objectStore(STORE_NAME);
+        store.put(notes, 'notesData');
+        localStorage.setItem('plushAppTheme', getActiveThemeId());
+    }
+    function loadLocalData() {
+        return new Promise((resolve) => {
+            if (!db) return resolve(null);
+            const tx = db.transaction(STORE_NAME, 'readonly');
+            const store = tx.objectStore(STORE_NAME);
+            const request = store.get('notesData');
+            request.onsuccess = (e) => resolve(e.target.result);
+            request.onerror = () => resolve(null);
+        });
+    }
+
+    // ================================================================
+    //  UI STACK
+    // ================================================================
+    function pushUI(id) {
+        if (uiStack[uiStack.length - 1] !== id) {
+            const el = document.getElementById(id);
+            if (el) el.classList.add('active');
+            uiStack.push(id);
+            history.pushState({ id: id }, "");
+        }
+    }
+    function popUI() { history.back(); }
+    window.addEventListener('popstate', (e) => {
+        if (uiStack.length > 0) {
+            let id = uiStack.pop();
+            const el = document.getElementById(id);
+            if (el) el.classList.remove('active');
+            if (id === 'custom-modal') { selectedMsgId = null; }
+            if (id === 'preview-overlay') { tempImageData = null; }
+            if (id === 'chat-modal') { handleChatClose(); }
+            if (id === 'draw-overlay') { clearDraggableTexts(); document.getElementById('color-drawer').classList.remove('active'); }
+            if (id === 'rt-overlay') { document.getElementById('rt-editor-area').removeAttribute('data-edit-id'); }
+            if (id === 'circular-menu') { document.getElementById('circular-menu').classList.remove('active'); }
+            if (id === 'sheet-overlay') { editSheetMsgId = null; }
+            if (id === 'invoice-overlay') { editInvoiceMsgId = null; }
+        }
+    });
+
+    // ================================================================
+    //  CIRCULAR MENU — FIXED: overlay click only closes if target is overlay
+    // ================================================================
+    document.addEventListener('DOMContentLoaded', function() {
+        const overlay = document.getElementById('circular-menu');
+        overlay.addEventListener('click', function(e) {
+            if (e.target === this) closeCircularMenu(e);
+        });
+    });
+
+    function showCircularMenu(id, x, y) {
+        activeCircleNoteId = id;
+        const cm = document.getElementById('circular-menu');
+        const center = document.getElementById('cm-center');
+        if (x < 100) x = 100;
+        if (x > window.innerWidth - 100) x = window.innerWidth - 100;
+        if (y < 120) y = 120;
+        if (y > window.innerHeight - 120) y = window.innerHeight - 120;
+        center.style.left = x + 'px';
+        center.style.top = y + 'px';
+        cm.classList.add('active');
+        menuOpenGuardUntil = Date.now() + 400;
+        if (navigator.vibrate) navigator.vibrate(50);
+    }
+
+    function closeCircularMenu(e) {
+        if (e && Date.now() < menuOpenGuardUntil) return;
+        document.getElementById('circular-menu').classList.remove('active');
+        activeCircleNoteId = null;
+    }
+
+    // delegate click on .circle-btn (with touch support)
+    function setupCircleButtons() {
+        const buttons = document.querySelectorAll('.circle-btn');
+        buttons.forEach(btn => {
+            const action = btn.dataset.action;
+            if (!action) return;
+            // click for mouse, touchstart for touch devices to avoid delay
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                executeCM(action);
+            });
+            btn.addEventListener('touchstart', function(e) {
+                // prevent double-firing
+                e.stopPropagation();
+                e.preventDefault();
+                executeCM(action);
+            }, { passive: false });
+        });
+    }
+
+    function executeCM(action) {
+        if (!activeCircleNoteId) { closeCircularMenu(); return; }
+        const note = notes.find(n => n.id === activeCircleNoteId);
+        if (!note) { closeCircularMenu(); return; }
+        const index = notes.indexOf(note);
+        if (index === -1) { closeCircularMenu(); return; }
+
+        switch (action) {
+            case 'pin': note.isPinned = !note.isPinned; break;
+            case 'dup': {
+                let dup = JSON.parse(JSON.stringify(note));
+                dup.id = Date.now() + Math.random() * 1000;
+                dup.time = getCurrentTime();
+                dup.isPinned = false;
+                dup.messages = dup.messages.map(m => ({ ...m, id: Date.now() + Math.random() * 1000 }));
+                notes.unshift(dup);
+                break;
+            }
+            case 'color': {
+                const gradients = ['linear-gradient(135deg, #3b82f6, #6366f1)','linear-gradient(135deg, #f43f5e, #be123c)','linear-gradient(135deg, #10b981, #047857)','linear-gradient(135deg, #8b5cf6, #6d28d9)','linear-gradient(135deg, #f59e0b, #b45309)'];
+                let idx = gradients.indexOf(note.avatarGrad);
+                note.avatarGrad = gradients[(idx + 1) % gradients.length];
+                break;
+            }
+            case 'share': {
+                let content = note.messages.filter(m => m.type === 'text' || m.type === 'richtext')
+                    .map(m => m.content.replace(/<[^>]*>?/gm, '')).join('\n\n');
+                if (navigator.share) navigator.share({ title: note.title, text: content });
+                else showCustomAlert("Exported:\n\n" + content);
+                break;
+            }
+            case 'hide': {
+                note.isHidden = true;
+                if (navigator.vibrate) navigator.vibrate([30,40,30]);
+                saveLocalData(); closeCircularMenu();
+                renderNotesList(document.querySelector('.search-bar input')?.value || '');
+                updateGreeting();
+                setTimeout(() => showCustomAlert(`"${escapeHTML(note.title)}" moved to Hidden Files.`), 300);
+                return;
+            }
+            case 'del': notes.splice(index, 1); break;
+            default: closeCircularMenu(); return;
+        }
+        saveLocalData(); closeCircularMenu();
+        renderNotesList(document.querySelector('.search-bar input')?.value || '');
+        updateGreeting();
+    }
+
+    // ================================================================
+    //  RENDER NOTES
+    // ================================================================
+    function renderNotesList(searchQuery = '') {
+        const container = document.getElementById('notes-container');
+        if (!container) return;
+        container.innerHTML = '';
+        let filtered = notes.filter(n => !n.isHidden);
+        if (searchQuery.trim()) {
+            const q = searchQuery.toLowerCase();
+            filtered = filtered.filter(n => n.title.toLowerCase().includes(q) || n.messages.some(m => (m.type === 'text' || m.type === 'richtext') && m.content.toLowerCase().includes(q)));
+        }
+        filtered.sort((a,b) => { if (a.isPinned && !b.isPinned) return -1; if (!a.isPinned && b.isPinned) return 1; return b.id - a.id; });
+
+        filtered.forEach(note => {
+            const el = document.createElement('div');
+            el.className = 'note-item';
+            let isDragging = false, startX=0, startY=0;
+            const start = (e) => {
+                if (e.touches && e.touches.length > 1) return;
+                isDragging = false;
+                el.classList.add('pressed');
+                startX = e.touches ? e.touches[0].clientX : e.clientX;
+                startY = e.touches ? e.touches[0].clientY : e.clientY;
+                clearTimeout(pressTimer);
+                pressTimer = setTimeout(() => {
+                    if (!isDragging) {
+                        el.classList.remove('pressed');
+                        showCircularMenu(note.id, startX, startY);
+                    }
+                }, 500);
+            };
+            const move = (e) => {
+                const cx = e.touches ? e.touches[0].clientX : e.clientX;
+                const cy = e.touches ? e.touches[0].clientY : e.clientY;
+                if (Math.abs(cx - startX) > 15 || Math.abs(cy - startY) > 15) { isDragging = true; clearTimeout(pressTimer); el.classList.remove('pressed'); }
+            };
+            const end = () => { clearTimeout(pressTimer); el.classList.remove('pressed'); if (!isDragging && !document.getElementById('circular-menu').classList.contains('active')) { currentNoteId = note.id; openChatUI(note); } };
+            const cancel = () => { clearTimeout(pressTimer); el.classList.remove('pressed'); };
+            el.addEventListener('mousedown', start); el.addEventListener('mousemove', move); el.addEventListener('mouseup', end); el.addEventListener('mouseleave', cancel);
+            el.addEventListener('touchstart', start, {passive:true}); el.addEventListener('touchmove', move, {passive:true}); el.addEventListener('touchend', end); el.addEventListener('touchcancel', cancel);
+
+            let preview = "Empty note...";
+            if (note.messages.length) {
+                const last = note.messages[note.messages.length-1];
+                if (last.type === 'text') preview = escapeHTML(last.content.replace(/\n/g, ' '));
+                else if (last.type === 'richtext') preview = "📝 Rich Text Note";
+                else if (last.type === 'image') preview = last.caption ? `📷 ${escapeHTML(last.caption)}` : "📷 Image";
+                else if (last.type === 'drawing') preview = "🖌️ Drawing";
+                else if (last.type === 'sheet') preview = "📊 Spreadsheet";
+                else if (last.type === 'invoice') preview = "🧾 Billing Invoice";
+                else if (last.type === 'code') preview = "💻 Code Block";
+            }
+            const avatarHTML = note.image ? `<img src="${note.image}">` : `<i class="${note.icon}"></i>`;
+            const pinHTML = note.isPinned ? `<i class="ph-fill ph-push-pin pin-icon"></i>` : '';
+            const avatarStyle = note.avatarGrad ? `background: ${note.avatarGrad};` : '';
+            el.innerHTML = `<div class="note-avatar" style="${avatarStyle}">${avatarHTML}</div><div class="note-content"><div class="note-header"><div class="note-title">${escapeHTML(note.title)} ${pinHTML}</div><div class="note-time">${note.time}</div></div><div class="note-preview">${preview}</div></div>`;
+            container.appendChild(el);
+        });
+    }
+
+    function updateGreeting() {
+        const hour = new Date().getHours();
+        const t = I18N[currentLang] || I18N.en;
+        let greeting = t.evening;
+        if (hour >= 5 && hour < 12) greeting = t.morning;
+        else if (hour >= 12 && hour < 17) greeting = t.afternoon;
+        document.getElementById('greeting-title').innerText = greeting;
+        const active = notes.filter(n => !n.isHidden).length;
+        document.getElementById('greeting-sub').innerText = t.activeNotes(active);
+    }
+
+    // ================================================================
+    //  FAB
+    // ================================================================
+    function toggleFabMenu() {
+        document.getElementById('fab-menu').classList.toggle('active');
+        document.getElementById('main-fab').classList.toggle('active');
+    }
+    function triggerAction(action) {
+        toggleFabMenu();
+        const newNote = {
+            id: Date.now() + Math.random() * 1000,
+            title: 'New Note',
+            icon: 'ph-fill ph-file-text',
+            color: "transparent",
+            avatarGrad: "linear-gradient(135deg, #3b82f6, #6366f1)",
+            isPinned: false, isHidden: false, image: null, wallpaper: null,
+            time: getCurrentTime(),
+            messages: []
+        };
+        notes.unshift(newNote);
+        saveLocalData();
+        currentNoteId = newNote.id;
+        openChatUI(newNote);
+        updateGreeting();
+        if (action === 'text') setTimeout(() => document.getElementById('chat-input').focus(), 400);
+        else if (action === 'list') setTimeout(() => { let i = document.getElementById('chat-input'); i.value = "• "; i.focus(); autoResize(i); }, 400);
+        else if (action === 'image') setTimeout(() => document.getElementById('image-upload').click(), 400);
+        else if (action === 'drawing') setTimeout(() => openDrawing(), 400);
+        else if (action === 'richtext') setTimeout(() => openRichText(), 400);
+        else if (action === 'sheet') setTimeout(() => openSpreadsheet(), 400);
+        else if (action === 'invoice') setTimeout(() => openInvoice(), 400);
+    }
+    function toggleAttachMenu() { document.getElementById('chat-attach-menu').classList.toggle('active'); }
+    function closeAttachMenu() { document.getElementById('chat-attach-menu').classList.remove('active'); }
+    function triggerChatAction(action) {
+        closeAttachMenu();
+        if (action === 'image') document.getElementById('chat-image-upload').click();
+        else if (action === 'drawing') openDrawing();
+        else if (action === 'richtext') openRichText();
+        else if (action === 'sheet') openSpreadsheet();
+        else if (action === 'invoice') openInvoice();
+        else if (action === 'list') { let i = document.getElementById('chat-input'); i.value = "• "; i.focus(); autoResize(i); }
+    }
+
+    // ================================================================
+    //  SPREADSHEET (with edit)
+    // ================================================================
+    function openSpreadsheet(editMsgId = null) {
+        editSheetMsgId = editMsgId;
+        const table = document.getElementById('main-sheet-table');
+        if (editMsgId) {
+            const note = notes.find(n => n.id === currentNoteId);
+            if (note) {
+                const msg = note.messages.find(m => m.id === editMsgId);
+                if (msg && msg.type === 'sheet') {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(msg.content, 'text/html');
+                    const existing = doc.querySelector('table');
+                    if (existing) {
+                        table.innerHTML = existing.innerHTML;
+                        table.querySelectorAll('td').forEach(td => td.contentEditable = 'true');
+                        pushUI('sheet-overlay');
+                        return;
+                    }
+                }
+            }
+        }
+        table.innerHTML = `<tbody><tr><th>A</th><th>B</th><th>C</th></tr><tr><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr></tbody>`;
+        pushUI('sheet-overlay');
+    }
+
+    function addSheetRow() {
+        const tbody = document.getElementById('main-sheet-table').querySelector('tbody');
+        const cols = tbody.rows[0].cells.length;
+        const row = tbody.insertRow();
+        for (let i=0; i<cols; i++) { const cell = row.insertCell(); cell.contentEditable = "true"; }
+    }
+    function addSheetCol() {
+        const tbody = document.getElementById('main-sheet-table').querySelector('tbody');
+        const newHead = document.createElement('th');
+        newHead.innerText = String.fromCharCode(65 + tbody.rows[0].cells.length);
+        tbody.rows[0].appendChild(newHead);
+        for (let i=1; i<tbody.rows.length; i++) { const cell = tbody.rows[i].insertCell(); cell.contentEditable = "true"; }
+    }
+    function saveSpreadsheet() {
+        const html = document.getElementById('main-sheet-table').outerHTML;
+        if (editSheetMsgId) {
+            const note = notes.find(n => n.id === currentNoteId);
+            if (note) {
+                const msg = note.messages.find(m => m.id === editSheetMsgId);
+                if (msg) { msg.content = html; saveLocalData(); refreshChatBody(); popUI(); editSheetMsgId = null; return; }
+            }
+        }
+        saveMessageToNote('sheet', html);
+        popUI();
+    }
+
+    // ================================================================
+    //  INVOICE (with edit)
+    // ================================================================
+    function openInvoice(editMsgId = null) {
+        editInvoiceMsgId = editMsgId;
+        document.getElementById('inv-client').value = '';
+        document.getElementById('inv-date').value = new Date().toISOString().split('T')[0];
+        document.getElementById('inv-tbody').innerHTML = '';
+        document.getElementById('inv-tax').value = '0';
+
+        if (editMsgId) {
+            const note = notes.find(n => n.id === currentNoteId);
+            if (note) {
+                const msg = note.messages.find(m => m.id === editMsgId);
+                if (msg && msg.type === 'invoice') {
+                    try {
+                        const data = JSON.parse(msg.content);
+                        document.getElementById('inv-client').value = data.client || '';
+                        document.getElementById('inv-date').value = data.date || '';
+                        const tbody = document.getElementById('inv-tbody');
+                        const rows = data.itemsHtml.match(/<tr>.*?<\/tr>/gs) || [];
+                        rows.forEach(rowHTML => {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(rowHTML, 'text/html');
+                            const cells = doc.querySelectorAll('td');
+                            if (cells.length >= 4) {
+                                const newRow = document.createElement('tr');
+                                newRow.innerHTML = `
+                                    <td><input type="text" class="inv-cell-input" value="${escapeHTML(cells[0].textContent)}" placeholder="Item Name"></td>
+                                    <td><input type="number" class="inv-cell-input" value="${cells[1].textContent}" min="1" oninput="calculateInvoice()"></td>
+                                    <td><input type="number" class="inv-cell-input" value="${cells[2].textContent}" min="0" oninput="calculateInvoice()"></td>
+                                    <td style="color:var(--accent-primary); font-weight:bold;" class="inv-row-total">${cells[3].textContent}</td>
+                                `;
+                                tbody.appendChild(newRow);
+                            }
+                        });
+                        if (tbody.rows.length === 0) addInvoiceItem();
+                        calculateInvoice();
+                        pushUI('invoice-overlay');
+                        return;
+                    } catch(e) { /* fall through */ }
+                }
+            }
+        }
+        addInvoiceItem();
+        calculateInvoice();
+        pushUI('invoice-overlay');
+    }
+
+    function addInvoiceItem() {
+        const tbody = document.getElementById('inv-tbody');
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><input type="text" class="inv-cell-input" placeholder="Item Name"></td>
+            <td><input type="number" class="inv-cell-input" value="1" min="1" oninput="calculateInvoice()"></td>
+            <td><input type="number" class="inv-cell-input" value="0" min="0" oninput="calculateInvoice()"></td>
+            <td style="color:var(--accent-primary); font-weight:bold;" class="inv-row-total">0</td>
+        `;
+        tbody.appendChild(row);
+    }
+    function calculateInvoice() {
+        const tbody = document.getElementById('inv-tbody');
+        let subtotal = 0;
+        const currency = document.getElementById('inv-currency-btn').getAttribute('data-value');
+        for (let i=0; i<tbody.rows.length; i++) {
+            const row = tbody.rows[i];
+            const qty = parseFloat(row.cells[1].querySelector('input').value) || 0;
+            const price = parseFloat(row.cells[2].querySelector('input').value) || 0;
+            const total = qty * price;
+            row.cells[3].innerText = total.toFixed(2);
+            subtotal += total;
+        }
+        const tax = parseFloat(document.getElementById('inv-tax').value) || 0;
+        const grand = subtotal + (subtotal * tax / 100);
+        document.getElementById('inv-grand-total').innerText = currency + ' ' + grand.toFixed(2);
+    }
+    function saveInvoice() {
+        const client = document.getElementById('inv-client').value || 'Guest';
+        const date = document.getElementById('inv-date').value;
+        const total = document.getElementById('inv-grand-total').innerText;
+        const tbody = document.getElementById('inv-tbody');
+        let itemsHtml = '';
+        for (let i=0; i<tbody.rows.length; i++) {
+            const row = tbody.rows[i];
+            const name = row.cells[0].querySelector('input').value || 'Item';
+            const qty = row.cells[1].querySelector('input').value;
+            const price = row.cells[2].querySelector('input').value;
+            const rTotal = row.cells[3].innerText;
+            itemsHtml += `<tr><td>${escapeHTML(name)}</td><td>${qty}</td><td>${price}</td><td>${rTotal}</td></tr>`;
+        }
+        const data = { client, date, total, itemsHtml };
+        const content = JSON.stringify(data);
+
+        if (editInvoiceMsgId) {
+            const note = notes.find(n => n.id === currentNoteId);
+            if (note) {
+                const msg = note.messages.find(m => m.id === editInvoiceMsgId);
+                if (msg) { msg.content = content; saveLocalData(); refreshChatBody(); popUI(); editInvoiceMsgId = null; return; }
+            }
+        }
+        saveMessageToNote('invoice', content);
+        popUI();
+    }
+
+    // ================================================================
+    //  CALCULATOR
+    // ================================================================
+    function toggleCalculator() { document.getElementById('calc-modal').classList.toggle('active'); }
+    function calcInput(val) {
+        const display = document.getElementById('calc-display');
+        if (val === 'C') { calcExpr = ""; display.innerText = "0"; }
+        else if (val === '=') { try { calcExpr = eval(calcExpr).toString(); display.innerText = calcExpr; } catch(e){ display.innerText = "Error"; calcExpr = ""; } }
+        else if (val === '%') { try { calcExpr = (eval(calcExpr)/100).toString(); display.innerText = calcExpr; } catch(e){ display.innerText = "Error"; calcExpr = ""; } }
+        else { calcExpr += val; display.innerText = calcExpr; }
+    }
+    function setupCalculatorDrag() {
+        const calcEl = document.getElementById('calc-modal');
+        const header = document.getElementById('calc-header');
+        let dragging = false, offX, offY;
+        const start = (e) => { dragging = true; const c = e.clientX || e.touches[0].clientX; const d = e.clientY || e.touches[0].clientY; const r = calcEl.getBoundingClientRect(); offX = c - r.left; offY = d - r.top; };
+        const move = (e) => { if (!dragging) return; e.preventDefault(); const c = e.clientX || e.touches[0].clientX; const d = e.clientY || e.touches[0].clientY; calcEl.style.left = (c - offX) + 'px'; calcEl.style.top = (d - offY) + 'px'; calcEl.style.transform = 'none'; };
+        const end = () => { dragging = false; };
+        header.addEventListener('mousedown', start); document.addEventListener('mousemove', move); document.addEventListener('mouseup', end);
+        header.addEventListener('touchstart', start, {passive:false}); document.addEventListener('touchmove', move, {passive:false}); document.addEventListener('touchend', end);
+    }
+
+    // ================================================================
+    //  RICH TEXT
+    // ================================================================
+    function openRichText(editMsgId = null) {
+        const area = document.getElementById('rt-editor-area');
+        if (editMsgId) {
+            const note = notes.find(n => n.id === currentNoteId);
+            if (note) {
+                const msg = note.messages.find(m => m.id === editMsgId);
+                if (msg && (msg.type === 'richtext' || msg.type === 'text')) {
+                    area.innerHTML = msg.content;
+                    area.setAttribute('data-edit-id', editMsgId);
+                    pushUI('rt-overlay');
+                    return;
+                }
+            }
+        }
+        area.innerHTML = '';
+        area.removeAttribute('data-edit-id');
+        pushUI('rt-overlay');
+    }
+
+    let lastEditorSelectionRange = null;
+    function restoreEditorSelection() {
+        const editor = document.getElementById('rt-editor-area');
+        editor.focus();
+        const sel = window.getSelection();
+        if (lastEditorSelectionRange) {
+            try { sel.removeAllRanges(); sel.addRange(lastEditorSelectionRange); } catch(e) {}
+        } else if (sel.rangeCount === 0 || !editor.contains(sel.anchorNode)) {
+            const r = document.createRange(); r.selectNodeContents(editor); r.collapse(false);
+            sel.removeAllRanges(); sel.addRange(r);
+        }
+    }
+    function captureEditorSelection() {
+        const editor = document.getElementById('rt-editor-area');
+        const sel = window.getSelection();
+        if (sel.rangeCount > 0 && editor.contains(sel.anchorNode)) lastEditorSelectionRange = sel.getRangeAt(0).cloneRange();
+    }
+    function execCmd(cmd, val=null) { restoreEditorSelection(); document.execCommand(cmd, false, val); captureEditorSelection(); updateToolbarActiveStates(); }
+    function updateToolbarActiveStates() {
+        const map = [ ['rt-bold-btn','bold'], ['rt-italic-btn','italic'], ['rt-underline-btn','underline'], ['rt-ul-btn','insertUnorderedList'], ['rt-ol-btn','insertOrderedList'] ];
+        map.forEach(([id,cmd]) => {
+            const btn = document.getElementById(id);
+            if (!btn) return;
+            let active = false;
+            try { active = document.queryCommandState(cmd); } catch(e) {}
+            btn.classList.toggle('active', active);
+        });
+        const hBtn = document.getElementById('rt-h-btn');
+        if (hBtn) { let val=''; try { val = document.queryCommandValue('formatBlock'); } catch(e) {} hBtn.classList.toggle('active', /h3/i.test(val)); }
+    }
+    function clearToolbarActiveStates() { document.querySelectorAll('.rt-toolbar .rt-tool-btn').forEach(b => b.classList.remove('active')); }
+    function insertChecklist() {
+        restoreEditorSelection();
+        document.execCommand('insertHTML', false, '<div style="display:block; clear:both; margin-bottom:5px;"><div style="display:flex; align-items:flex-start; gap:8px; width:100%;"><input type="checkbox" style="margin-top:4px;" onclick="return false;"> <div contenteditable="true" style="flex:1; outline:none;">List item</div></div></div><br>');
+        captureEditorSelection();
+    }
+    function insertTable() { restoreEditorSelection(); document.execCommand('insertHTML', false, '<table border="1" style="width:100%; border-collapse:collapse; margin-top:5px; border-radius:8px;"><tr><td>Cell 1</td><td>Cell 2</td></tr></table><br>'); captureEditorSelection(); }
+    function insertCodeBlock() { restoreEditorSelection(); document.execCommand('insertHTML', false, '<pre><code class="hljs-block" contenteditable="true">// type or paste your code here</code></pre><br>'); captureEditorSelection(); }
+    function saveRichText() {
+        const area = document.getElementById('rt-editor-area');
+        const html = area.innerHTML;
+        if (html.trim()) {
+            const editId = area.getAttribute('data-edit-id');
+            if (editId) {
+                const note = notes.find(n => n.id === currentNoteId);
+                if (note) {
+                    const msg = note.messages.find(m => m.id == editId);
+                    if (msg) { msg.content = html; saveLocalData(); refreshChatBody(); }
+                }
+            } else {
+                saveMessageToNote('richtext', html);
+            }
+        }
+        document.body.classList.remove('focus-mode');
+        popUI();
+    }
+
+    // ================================================================
+    //  CHAT
+    // ================================================================
+    function openChatUI(note) {
+        document.getElementById('chat-title').innerHTML = `${escapeHTML(note.title)}`;
+        const av = document.getElementById('chat-header-avatar');
+        av.style.background = note.avatarGrad || 'var(--accent-gradient)';
+        av.innerHTML = note.image ? `<img src="${note.image}">` : `<i class="${note.icon}"></i>`;
+        applyWallpaper(note.wallpaper);
+        cancelReply();
+        document.body.classList.remove('focus-mode');
+        document.getElementById('chat-input').value = '';
+        document.getElementById('chat-input').style.height = '24px';
+        refreshChatBody();
+        pushUI('chat-modal');
+    }
+    function handleChatClose() {
+        const idx = notes.findIndex(n => n.id === currentNoteId);
+        if (idx > -1 && notes[idx].messages.length === 0 && notes[idx].title === 'New Note') notes.splice(idx, 1);
+        saveLocalData();
+        currentNoteId = null;
+        closeAttachMenu();
+        cancelReply();
+        document.body.classList.remove('focus-mode');
+        renderNotesList(document.querySelector('.search-bar input')?.value || '');
+        updateGreeting();
+        editSheetMsgId = null;
+        editInvoiceMsgId = null;
+    }
+    function applyWallpaper(url) {
+        const cb = document.getElementById('chat-body');
+        cb.style.backgroundImage = url ? `linear-gradient(var(--glass-bg), var(--glass-bg)), url(${url})` : 'none';
+        if (!url) cb.style.backgroundColor = 'var(--bg-chat)';
+    }
+    function setupReply(msgId) {
+        const note = notes.find(n => n.id === currentNoteId);
+        if (!note) return;
+        const msg = note.messages.find(m => m.id === msgId);
+        if (!msg) return;
+        replyingToMsg = msg;
+        let preview = msg.type === 'text' ? msg.content : (msg.type === 'code' ? '💻 Code' : (msg.type === 'richtext' ? '📝 Rich Text' : (msg.type === 'sheet' ? '📊 Spreadsheet' : (msg.type === 'invoice' ? '🧾 Invoice' : '📷 Media'))));
+        document.getElementById('reply-banner-text').innerText = preview;
+        document.getElementById('reply-banner').classList.add('active');
+        document.getElementById('chat-input').focus();
+    }
+    function cancelReply() { replyingToMsg = null; document.getElementById('reply-banner').classList.remove('active'); }
+
+    // ================================================================
+    //  MEDIA
+    // ================================================================
+    function openImagePreviewOverlay(e) {
+        const f = e.target.files[0];
+        if (!f) return;
+        closeAttachMenu();
+        const r = new FileReader();
+        r.onload = (ev) => {
+            tempImageData = ev.target.result;
+            document.getElementById('preview-image-src').src = tempImageData;
+            document.getElementById('preview-caption-input').value = '';
+            pushUI('preview-overlay');
+        };
+        r.readAsDataURL(f);
+        e.target.value = '';
+    }
+    function editPreviewImage() { const src = tempImageData; popUI(); setTimeout(() => openDrawing(src), 400); }
+    function sendPreviewImage() {
+        const caption = document.getElementById('preview-caption-input').value.trim();
+        saveMessageToNote('image', tempImageData, caption);
+        popUI();
+    }
+    function openImageViewer(src) { document.getElementById('fullscreen-image').src = src; pushUI('fullscreen-viewer'); }
+    function editFullscreenImage() { const src = document.getElementById('fullscreen-image').src; popUI(); setTimeout(() => openDrawing(src), 400); }
+
+    function saveMessageToNote(type, content, caption = null) {
+        const note = notes.find(n => n.id === currentNoteId);
+        if (!note) return;
+        const msg = { id: Date.now() + Math.random()*1000, type, content, time: getCurrentTime() };
+        if (caption) msg.caption = caption;
+        if (replyingToMsg) { msg.replyObj = { type: replyingToMsg.type, content: replyingToMsg.content }; cancelReply(); }
+        note.messages.push(msg);
+        note.time = msg.time;
+        saveLocalData();
+        refreshChatBody();
+    }
+
+    function sendTextMessage() {
+        const input = document.getElementById('chat-input');
+        const text = input.value.trim();
+        if (!text) return;
+        const isCode = input.dataset.isCode === 'true';
+        saveMessageToNote(isCode ? 'code' : 'text', text);
+        input.value = '';
+        input.style.height = '24px';
+        input.dataset.isCode = '';
+        input.classList.remove('code-mode');
+        document.body.classList.remove('focus-mode');
+    }
+
+    // ================================================================
+    //  INFO SETTINGS
+    // ================================================================
+    function openInfoSettings() {
+        const note = notes.find(n => n.id === currentNoteId);
+        if (!note) return;
+        document.getElementById('info-name-display').innerText = note.title;
+        const av = document.getElementById('info-big-avatar');
+        av.style.background = note.avatarGrad || 'var(--accent-gradient)';
+        document.getElementById('info-big-avatar-inner').innerHTML = note.image ? `<img src="${note.image}">` : `<i class="${note.icon}"></i>`;
+        pushUI('info-modal');
+    }
+    function handleWallpaperUpload(e) {
+        const f = e.target.files[0];
+        if (!f) return;
+        const r = new FileReader();
+        r.onload = (ev) => {
+            const note = notes.find(n => n.id === currentNoteId);
+            if (note) { note.wallpaper = ev.target.result; saveLocalData(); applyWallpaper(ev.target.result); popUI(); }
+        };
+        r.readAsDataURL(f);
+    }
+    function removeWallpaper() {
+        const note = notes.find(n => n.id === currentNoteId);
+        if (note) { note.wallpaper = null; saveLocalData(); applyWallpaper(null); popUI(); }
+    }
+    function showTitleEditInput() {
+        const note = notes.find(n => n.id === currentNoteId);
+        if (!note) return;
+        document.getElementById('modal-content').innerHTML = `
+            <h3>Rename Folder</h3>
+            <input type="text" id="edit-title-input" class="custom-modal-input" value="${escapeHTML(note.title)}">
+            <div class="custom-modal-btns-row"><button class="c-btn btn-gray" onclick="popUI()">Cancel</button><button class="c-btn btn-blue" onclick="saveNewTitle()">Save</button></div>
+        `;
+        pushUI('custom-modal');
+        setTimeout(() => document.getElementById('edit-title-input').focus(), 100);
+    }
+    function saveNewTitle() {
+        const val = document.getElementById('edit-title-input').value.trim();
+        if (val) {
+            const note = notes.find(n => n.id === currentNoteId);
+            if (note) { note.title = val; saveLocalData(); document.getElementById('chat-title').innerHTML = `${escapeHTML(val)}`; document.getElementById('info-name-display').innerText = val; renderNotesList(document.querySelector('.search-bar input')?.value || ''); }
+        }
+        popUI();
+    }
+
+    // ================================================================
+    //  DRAWING
+    // ================================================================
+    let drawHistory = [], redoHistory = [], isEraser = false, drawing = false, canvasBgColor = "transparent", activeColorType = 'pen', activeDragEl = null, dragOffsetX = 0, dragOffsetY = 0;
+
+    function setupCanvas() {
+        const canvas = document.getElementById('draw-canvas');
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight - 130;
+        ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        const start = (e) => { drawing = true; draw(e); };
+        const end = () => { if (drawing) { drawing = false; ctx.beginPath(); saveDrawState(); } };
+        const draw = (e) => {
+            if (!drawing) return;
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX || e.touches[0].clientX) - rect.left;
+            const y = (e.clientY || e.touches[0].clientY) - rect.top;
+            ctx.lineWidth = document.getElementById('draw-size').value;
+            if (isEraser) { ctx.globalCompositeOperation = "destination-out"; ctx.strokeStyle = "rgba(0,0,0,1)"; } else { ctx.globalCompositeOperation = "source-over"; ctx.strokeStyle = document.getElementById('active-pen-color-btn').style.backgroundColor || '#ff3b30'; }
+            ctx.lineTo(x, y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x, y);
+        };
+        canvas.addEventListener('mousedown', start); canvas.addEventListener('mouseup', end); canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('touchstart', start, {passive:false}); canvas.addEventListener('touchend', end); canvas.addEventListener('touchmove', draw, {passive:false});
+    }
+    function setupDraggableTextLogic() {
+        const move = (e) => {
+            if (!activeDragEl) return;
+            e.preventDefault();
+            const x = e.clientX || e.touches[0].clientX;
+            const y = e.clientY || e.touches[0].clientY;
+            const rect = document.getElementById('text-overlay-container').getBoundingClientRect();
+            activeDragEl.style.left = (x - rect.left - dragOffsetX) + 'px';
+            activeDragEl.style.top = (y - rect.top - dragOffsetY) + 'px';
+        };
+        const end = () => { activeDragEl = null; };
+        const overlay = document.getElementById('draw-overlay');
+        overlay.addEventListener('mousemove', move); overlay.addEventListener('mouseup', end);
+        overlay.addEventListener('touchmove', move, {passive:false}); overlay.addEventListener('touchend', end);
+    }
+    function saveDrawState() {
+        const canvas = document.getElementById('draw-canvas');
+        if (drawHistory.length > 20) drawHistory.shift();
+        drawHistory.push(canvas.toDataURL());
+        redoHistory = [];
+    }
+    function undoDraw() {
+        const canvas = document.getElementById('draw-canvas'); const ctx = canvas.getContext('2d');
+        if (drawHistory.length > 1) {
+            redoHistory.push(drawHistory.pop());
+            const img = new Image();
+            img.onload = () => { ctx.clearRect(0,0,canvas.width,canvas.height); ctx.globalCompositeOperation = "source-over"; ctx.drawImage(img,0,0); };
+            img.src = drawHistory[drawHistory.length-1];
+        }
+    }
+    function redoDraw() {
+        const canvas = document.getElementById('draw-canvas'); const ctx = canvas.getContext('2d');
+        if (redoHistory.length > 0) {
+            const next = redoHistory.pop();
+            drawHistory.push(next);
+            const img = new Image();
+            img.onload = () => { ctx.clearRect(0,0,canvas.width,canvas.height); ctx.globalCompositeOperation = "source-over"; ctx.drawImage(img,0,0); };
+            img.src = next;
+        }
+    }
+    function toggleEraser() { isEraser = !isEraser; updateEraserBtn(); }
+    function updateEraserBtn() {
+        const btn = document.getElementById('eraser-btn');
+        btn.style.background = isEraser ? "#ef4444" : "transparent";
+        btn.style.color = isEraser ? "white" : "var(--text-primary)";
+    }
+    function addTextToCanvasPrompt() {
+        document.getElementById('modal-content').innerHTML = `
+            <h3 style="margin-bottom:20px;">Add Text</h3>
+            <input type="text" id="canvas-text-input" class="custom-modal-input" placeholder="Your text...">
+            <div class="custom-modal-btns-row">
+                <button class="c-btn btn-gray" onclick="popUI()">Cancel</button>
+                <button class="c-btn btn-blue" onclick="addDraggableText()">Add</button>
+            </div>
+        `;
+        pushUI('custom-modal');
+        setTimeout(() => document.getElementById('canvas-text-input').focus(), 100);
+    }
+    function addDraggableText() {
+        const text = document.getElementById('canvas-text-input').value.trim();
+        if (text) {
+            const el = document.createElement('div');
+            el.className = 'draggable-text';
+            el.innerText = text;
+            el.style.color = document.getElementById('active-pen-color-btn').style.backgroundColor || '#ff3b30';
+            const size = parseInt(document.getElementById('draw-size').value);
+            el.style.fontSize = (size * 2 + 15) + 'px';
+            el.style.left = '50px';
+            el.style.top = '100px';
+            const start = (e) => {
+                e.stopPropagation();
+                activeDragEl = el;
+                const x = e.clientX || e.touches[0].clientX;
+                const y = e.clientY || e.touches[0].clientY;
+                dragOffsetX = x - el.getBoundingClientRect().left;
+                dragOffsetY = y - el.getBoundingClientRect().top;
+            };
+            el.addEventListener('mousedown', start);
+            el.addEventListener('touchstart', start, {passive:false});
+            document.getElementById('text-overlay-container').appendChild(el);
+        }
+        popUI();
+    }
+    function clearDraggableTexts() { document.getElementById('text-overlay-container').innerHTML = ''; activeDragEl = null; }
+    function openColorDrawer(type) {
+        activeColorType = type;
+        const presets = ['#ff3b30','#ff9500','#ffcc00','#4cd964','#5ac8fa','#007aff','#0040ff','#5856d6','#ff2d55','#ffffff','#000000','transparent'];
+        let html = '';
+        presets.forEach(c => {
+            const display = c === 'transparent' ? 'repeating-conic-gradient(#808080 0% 25%, transparent 0% 50%) 50% / 10px 10px' : c;
+            html += `<div class="color-swatch" style="background:${display}; border:2px solid ${c==='#000000'?'#555':c};" onclick="applyColor('${c}')"></div>`;
+        });
+        document.getElementById('color-presets').innerHTML = html;
+        document.getElementById('color-drawer').classList.add('active');
+        pushUI('color-drawer');
+    }
+    function closeColorDrawer() {
+        if (uiStack[uiStack.length-1] === 'color-drawer') popUI();
+        else document.getElementById('color-drawer').classList.remove('active');
+    }
+    function applyCustomHex() { const hex = document.getElementById('custom-hex').value; if (hex) applyColor(hex); }
+    function applyColor(c) {
+        if (activeColorType === 'pen') {
+            document.getElementById('active-pen-color-btn').style.backgroundColor = c !== 'transparent' ? c : '#ffffff';
+            isEraser = false; updateEraserBtn();
+        } else {
+            canvasBgColor = c;
+            document.getElementById('draw-container').style.backgroundColor = c;
+        }
+        closeColorDrawer();
+    }
+    function openDrawing(imgSrc = null) {
+        const canvas = document.getElementById('draw-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight - 130;
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.globalCompositeOperation = "source-over";
+        drawHistory = []; redoHistory = []; isEraser = false; updateEraserBtn(); clearDraggableTexts();
+        canvasBgColor = "transparent";
+        document.getElementById('draw-container').style.backgroundColor = "transparent";
+        if (imgSrc) {
+            const img = new Image();
+            img.onload = () => {
+                const h = canvas.width / img.width;
+                const v = canvas.height / img.height;
+                const r = Math.min(h, v);
+                const sx = (canvas.width - img.width*r)/2;
+                const sy = (canvas.height - img.height*r)/2;
+                ctx.drawImage(img, 0,0, img.width,img.height, sx, sy, img.width*r, img.height*r);
+                saveDrawState();
+            };
+            img.src = imgSrc;
+        } else saveDrawState();
+        pushUI('draw-overlay');
+    }
+    function saveDrawing() {
+        const canvas = document.getElementById('draw-canvas');
+        const temp = document.createElement('canvas');
+        temp.width = canvas.width; temp.height = canvas.height;
+        const tctx = temp.getContext('2d');
+        if (canvasBgColor !== 'transparent') { tctx.fillStyle = canvasBgColor; tctx.fillRect(0,0,temp.width,temp.height); }
+        tctx.drawImage(canvas,0,0);
+        const texts = document.querySelectorAll('.draggable-text');
+        const rect = canvas.getBoundingClientRect();
+        texts.forEach(el => {
+            const r = el.getBoundingClientRect();
+            const x = r.left - rect.left;
+            const y = r.top - rect.top + (parseInt(el.style.fontSize) * 0.85);
+            tctx.font = el.style.fontSize + " 'Plus Jakarta Sans', sans-serif";
+            tctx.fillStyle = el.style.color;
+            tctx.fillText(el.innerText, x, y);
+        });
+        saveMessageToNote('drawing', temp.toDataURL());
+        popUI(); clearDraggableTexts();
+    }
+
+    // ================================================================
+    //  MESSAGE RENDERING
+    // ================================================================
+    function refreshChatBody() {
+        const body = document.getElementById('chat-body');
+        body.innerHTML = '';
+        const note = notes.find(n => n.id === currentNoteId);
+        if (!note) return;
+        note.messages.forEach(msg => appendMessageBubble(msg));
+        scrollToBottom();
+        highlightCodeBlocks(body);
+        // ensure copy buttons work
+        body.querySelectorAll('.code-copy-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const pre = this.closest('pre');
+                if (!pre) return;
+                const code = pre.querySelector('code');
+                if (!code) return;
+                const text = code.textContent;
+                navigator.clipboard.writeText(text).then(() => {
+                    this.classList.add('copied'); this.innerText = 'Copied!';
+                    setTimeout(() => { this.classList.remove('copied'); this.innerText = 'Copy'; }, 2000);
+                }).catch(() => {
+                    const ta = document.createElement('textarea');
+                    ta.value = text; document.body.appendChild(ta); ta.select();
+                    try { document.execCommand('copy'); } catch(err) {}
+                    document.body.removeChild(ta);
+                    this.classList.add('copied'); this.innerText = 'Copied!';
+                    setTimeout(() => { this.classList.remove('copied'); this.innerText = 'Copy'; }, 2000);
+                });
+            });
+        });
+    }
+
+    function appendMessageBubble(msg) {
+        const div = document.createElement('div');
+        div.className = 'message';
+        let html = '';
+        if (msg.replyObj) {
+            let r = msg.replyObj.type === 'text' ? escapeHTML(msg.replyObj.content) : (msg.replyObj.type === 'sheet' ? '📊 Spreadsheet' : 'Attachment');
+            html += `<div class="reply-block"><div class="reply-block-content">${r}</div></div>`;
+        }
+        if (msg.type === 'text') {
+            const lines = msg.content.split('\n');
+            let isList = false;
+            let fmt = lines.map(line => {
+                if (line.trim().startsWith('•')) { isList = true; return `<div class="list-item"><span class="bullet"><i class="ph-fill ph-caret-right"></i></span> <div class="message-text">${escapeHTML(line.replace('•','').trim())}</div></div>`; }
+                return `<div class="message-text">${escapeHTML(line)}</div>`;
+            }).join('');
+            const isLong = !isList && (msg.content.length > 280 || lines.length > 6);
+            const cid = 'clamp-' + msg.id;
+            if (isLong) {
+                html += `<div class="${isList?'list-container':''} msg-text-clamped" id="${cid}">${fmt}</div><span class="msg-expand-btn" onclick="event.stopPropagation(); toggleExpandMsg('${cid}', this)">Show more <i class="ph ph-caret-down"></i></span>`;
+            } else {
+                html += `<div class="${isList?'list-container':''}">${fmt}</div>`;
+            }
+        } else if (msg.type === 'richtext') {
+            html += `<div class="rich-text-content">${msg.content}</div>`;
+        } else if (msg.type === 'code') {
+            const code = escapeHTML(msg.content);
+            html += `<div class="rich-text-content"><pre style="position:relative;"><button class="code-copy-btn">Copy</button><code class="hljs-block" contenteditable="true" onclick="event.stopPropagation()" onblur="saveCodeEdit(${msg.id}, this)">${code}</code></pre></div>`;
+        } else if (msg.type === 'sheet') {
+            html += `<div class="rich-text-content"><div style="overflow-x:auto;"><table class="msg-sheet-table">${msg.content.replace(/<table[^>]*>|<\/table>/gi, '')}</table></div></div>`;
+        } else if (msg.type === 'invoice') {
+            try {
+                const data = JSON.parse(msg.content);
+                html += `
+                    <div class="msg-invoice-card">
+                        <h4><span>Invoice</span> <span>${data.date}</span></h4>
+                        <div style="font-size:12px; margin-bottom:10px; color:rgba(255,255,255,0.7);">Client: <b>${escapeHTML(data.client)}</b></div>
+                        <table>${data.itemsHtml}</table>
+                        <div class="msg-invoice-total">Total: ${data.total}</div>
+                    </div>`;
+            } catch(e) { html += `<div class="message-text">[Invoice data error]</div>`; }
+        } else if (msg.type === 'image' || msg.type === 'drawing') {
+            html += `<img src="${msg.content}" onclick="event.stopPropagation(); openImageViewer('${msg.content}')">`;
+            if (msg.caption) html += `<div style="margin-top:5px;" class="message-text">${escapeHTML(msg.caption).replace(/\n/g,'<br>')}</div>`;
+        }
+        div.innerHTML = `<span class="message-time">${msg.time}</span>${html}`;
+
+        // swipe reply
+        let sx=0, sy=0;
+        div.addEventListener('touchstart', e => { if (e.touches.length>1) return; sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, {passive:true});
+        div.addEventListener('touchend', e => {
+            const ex = e.changedTouches[0].clientX, ey = e.changedTouches[0].clientY;
+            const dx = ex - sx, dy = Math.abs(sy - ey);
+            if (dx > 50 && dx > dy) setupReply(msg.id);
+        });
+
+        // long press for options
+        let timer, dragging = false;
+        const start = (e) => {
+            if (e.touches && e.touches.length > 1) return;
+            dragging = false; clearTimeout(timer);
+            timer = setTimeout(() => { if (!dragging) showMsgOptionsModal(msg.id); }, 450);
+        };
+        const move = () => { dragging = true; clearTimeout(timer); };
+        const cancel = () => { clearTimeout(timer); };
+        div.addEventListener('mousedown', start); div.addEventListener('mousemove', move); div.addEventListener('mouseup', cancel); div.addEventListener('mouseleave', cancel);
+        div.addEventListener('touchstart', start, {passive:true}); div.addEventListener('touchmove', move, {passive:true}); div.addEventListener('touchend', cancel); div.addEventListener('touchcancel', cancel);
+
+        document.getElementById('chat-body').appendChild(div);
+    }
+
+    // ================================================================
+    //  MESSAGE OPTIONS (with edit sheet/invoice fix)
+    // ================================================================
+    function showMsgOptionsModal(id) {
+        selectedMsgId = id;
+        const note = notes.find(n => n.id === currentNoteId);
+        if (!note) return;
+        const msg = note.messages.find(m => m.id === selectedMsgId);
+        if (!msg) return;
+
+        let copyBtn = (msg.type === 'text' || msg.type === 'code' || msg.caption) ?
+            `<button id="msg-copy-btn" class="c-btn btn-gray" style="color:var(--text-primary)" onclick="copyMessage()"><i class="ph ph-copy"></i> Copy</button>` : '';
+        let editBtn = '';
+        if (msg.type === 'text') {
+            editBtn = `<button class="c-btn btn-blue" onclick="showMsgEditInput()"><i class="ph ph-pencil-simple"></i> Edit</button>`;
+        } else if (msg.type === 'richtext') {
+            editBtn = `<button class="c-btn btn-blue" onclick="popUI(); openRichText(${msg.id})"><i class="ph ph-pencil-simple"></i> Edit</button>`;
+        } else if (msg.type === 'sheet') {
+            editBtn = `<button class="c-btn btn-blue msg-edit-btn-sheet" onclick="editSheetMessage(${msg.id})"><i class="ph ph-grid-four"></i> Edit Sheet</button>`;
+        } else if (msg.type === 'invoice') {
+            editBtn = `<button class="c-btn btn-blue msg-edit-btn-invoice" onclick="editInvoiceMessage(${msg.id})"><i class="ph ph-receipt"></i> Edit Invoice</button>`;
+        } else if (msg.type === 'code') {
+            copyBtn = `<button id="msg-copy-btn" class="c-btn btn-gray" style="color:var(--text-primary)" onclick="copyCodeFromMsg()"><i class="ph ph-copy"></i> Copy Code</button>`;
+        }
+
+        document.getElementById('modal-content').innerHTML = `
+            <h3>Message Options</h3>
+            <div class="custom-modal-btns">
+                <button class="c-btn btn-blue" style="background:var(--bg-hover); color:var(--text-primary);" onclick="popUI(); setupReply(${msg.id});"><i class="ph ph-arrow-bend-up-left"></i> Reply</button>
+                ${copyBtn} ${editBtn}
+                <button class="c-btn btn-red" onclick="deleteSelectedMessage()"><i class="ph ph-trash"></i> Delete</button>
+                <button class="c-btn btn-gray" onclick="popUI()">Cancel</button>
+            </div>
+        `;
+        pushUI('custom-modal');
+    }
+
+    function editSheetMessage(msgId) {
+        popUI(); // close custom modal
+        setTimeout(() => openSpreadsheet(msgId), 100);
+    }
+    function editInvoiceMessage(msgId) {
+        popUI(); // close custom modal
+        setTimeout(() => openInvoice(msgId), 100);
+    }
+
+    function copyCodeFromMsg() {
+        const note = notes.find(n => n.id === currentNoteId);
+        if (!note) return;
+        const msg = note.messages.find(m => m.id === selectedMsgId);
+        if (!msg || msg.type !== 'code') return;
+        const text = msg.content;
+        navigator.clipboard.writeText(text).then(() => {
+            const btn = document.getElementById('msg-copy-btn');
+            if (btn) { btn.innerHTML = '<i class="ph-fill ph-check-circle"></i> Copied!'; btn.style.color = 'var(--accent-primary)'; setTimeout(()=>popUI(), 500); } else popUI();
+        }).catch(() => {
+            const ta = document.createElement('textarea');
+            ta.value = text; document.body.appendChild(ta); ta.select();
+            try { document.execCommand('copy'); } catch(err) {}
+            document.body.removeChild(ta);
+            const btn = document.getElementById('msg-copy-btn');
+            if (btn) { btn.innerHTML = '<i class="ph-fill ph-check-circle"></i> Copied!'; btn.style.color = 'var(--accent-primary)'; setTimeout(()=>popUI(), 500); } else popUI();
+        });
+    }
+
+    function copyMessage() {
+        const note = notes.find(n => n.id === currentNoteId);
+        if (!note) return;
+        const msg = note.messages.find(m => m.id === selectedMsgId);
+        if (!msg) return;
+        const text = (msg.type === 'text' || msg.type === 'code') ? msg.content : (msg.caption || '');
+        navigator.clipboard.writeText(text).then(() => {
+            const btn = document.getElementById('msg-copy-btn');
+            if (btn) { btn.innerHTML = '<i class="ph-fill ph-check-circle"></i> Copied!'; btn.style.color = 'var(--accent-primary)'; setTimeout(()=>popUI(), 500); } else popUI();
+        }).catch(() => {
+            const ta = document.createElement('textarea');
+            ta.value = text; document.body.appendChild(ta); ta.select();
+            try { document.execCommand('copy'); } catch(err) {}
+            document.body.removeChild(ta);
+            const btn = document.getElementById('msg-copy-btn');
+            if (btn) { btn.innerHTML = '<i class="ph-fill ph-check-circle"></i> Copied!'; btn.style.color = 'var(--accent-primary)'; setTimeout(()=>popUI(), 500); } else popUI();
+        });
+    }
+
+    function showMsgEditInput() {
+        const note = notes.find(n => n.id === currentNoteId);
+        if (!note) return;
+        const msg = note.messages.find(m => m.id === selectedMsgId);
+        if (!msg) return;
+        document.getElementById('modal-content').innerHTML = `
+            <h3>Edit Message:</h3>
+            <textarea id="edit-msg-input" class="custom-modal-input" rows="4">${escapeHTML(msg.content)}</textarea>
+            <div class="custom-modal-btns-row"><button class="c-btn btn-gray" onclick="popUI()">Cancel</button><button class="c-btn btn-blue" onclick="saveEditedMessage()">Save</button></div>
+        `;
+        setTimeout(() => document.getElementById('edit-msg-input').focus(), 100);
+    }
+    function saveEditedMessage() {
+        const val = document.getElementById('edit-msg-input').value.trim();
+        if (val) {
+            const note = notes.find(n => n.id === currentNoteId);
+            if (note) {
+                const msg = note.messages.find(m => m.id === selectedMsgId);
+                if (msg) { msg.content = val; saveLocalData(); refreshChatBody(); }
+            }
+        }
+        popUI();
+    }
+    function deleteSelectedMessage() {
+        const note = notes.find(n => n.id === currentNoteId);
+        if (note) { note.messages = note.messages.filter(m => m.id !== selectedMsgId); saveLocalData(); refreshChatBody(); popUI(); }
+    }
+
+    function saveCodeEdit(msgId, el) {
+        const note = notes.find(n => n.id === currentNoteId);
+        if (!note) return;
+        const msg = note.messages.find(m => m.id === msgId);
+        if (!msg) return;
+        msg.content = el.textContent;
+        saveLocalData();
+        el.removeAttribute('data-highlighted');
+        const pre = el.closest('pre');
+        const oldTag = pre && pre.querySelector('.code-lang-tag');
+        if (oldTag) oldTag.remove();
+        highlightCodeBlocks(pre ? pre.parentElement : document.getElementById('chat-body'));
+        if (pre && !pre.querySelector('.code-copy-btn')) {
+            const btn = document.createElement('button');
+            btn.className = 'code-copy-btn';
+            btn.innerText = 'Copy';
+            btn.addEventListener('click', function(e) { /* ... */ });
+            pre.prepend(btn);
+        }
+    }
+
+    // ================================================================
+    //  EXPAND
+    // ================================================================
+    function toggleExpandMsg(id, btn) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const collapsed = el.classList.toggle('msg-text-clamped');
+        btn.innerHTML = collapsed ? 'Show more <i class="ph ph-caret-down"></i>' : 'Show less <i class="ph ph-caret-up"></i>';
+    }
+
+    // ================================================================
+    //  SCROLL BOTTOM
+    // ================================================================
+    function initScrollToBottomBtn() {
+        const body = document.getElementById('chat-body');
+        const btn = document.getElementById('scroll-bottom-btn');
+        if (!body || !btn) return;
+        body.addEventListener('scroll', () => {
+            const dist = body.scrollHeight - body.scrollTop - body.clientHeight;
+            btn.classList.toggle('show', dist > 220);
+        });
+    }
+
+    // ================================================================
+    //  RIPPLE
+    // ================================================================
+    function initRippleEffect() {
+        const sel = 'button, .c-btn, .fab-btn, .fab-item, .menu-trigger-btn, .note-item, .premium-setting-item, .circle-btn, .draw-tool-btn, .calc-btn, .rt-tool-btn, .send-btn, .settings-profile-card, .native-sheet-option, .theme-swatch-card, .color-swatch, .attach-btn';
+        document.addEventListener('pointerdown', (e) => {
+            const target = e.target.closest(sel);
+            if (!target) return;
+            const rect = target.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height) * 1.2;
+            const circle = document.createElement('span');
+            circle.className = 'ripple-circle';
+            circle.style.width = circle.style.height = size + 'px';
+            circle.style.left = ((e.clientX ?? (rect.left + rect.width/2)) - rect.left - size/2) + 'px';
+            circle.style.top = ((e.clientY ?? (rect.top + rect.height/2)) - rect.top - size/2) + 'px';
+            if (getComputedStyle(target).position === 'static') target.style.position = 'relative';
+            target.classList.add('ripple-holder');
+            target.appendChild(circle);
+            setTimeout(() => circle.remove(), 620);
+        }, { passive: true });
+    }
+
+    // ================================================================
+    //  CODE HIGHLIGHT & AUTO-DETECT
+    // ================================================================
+    function highlightCodeBlocks(container) {
+        if (!window.hljs || !container) return;
+        container.querySelectorAll('pre code').forEach(block => {
+            if (block.getAttribute('data-highlighted') === 'yes') return;
+            try {
+                const result = hljs.highlightAuto(block.textContent, ['python','xml','java','cpp','javascript']);
+                block.innerHTML = result.value;
+                block.classList.add('hljs');
+                block.setAttribute('data-highlighted', 'yes');
+                const langMap = { xml:'HTML', javascript:'JavaScript', python:'Python', java:'Java', cpp:'C++' };
+                const pre = block.closest('pre');
+                if (pre && !pre.querySelector('.code-lang-tag')) {
+                    const tag = document.createElement('span');
+                    tag.className = 'code-lang-tag';
+                    tag.textContent = langMap[result.language] || (result.language || 'code');
+                    pre.appendChild(tag);
+                }
+                if (pre && !pre.querySelector('.code-copy-btn')) {
+                    const btn = document.createElement('button');
+                    btn.className = 'code-copy-btn';
+                    btn.innerText = 'Copy';
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const code = this.closest('pre').querySelector('code');
+                        if (!code) return;
+                        const text = code.textContent;
+                        navigator.clipboard.writeText(text).then(() => {
+                            this.classList.add('copied'); this.innerText = 'Copied!';
+                            setTimeout(() => { this.classList.remove('copied'); this.innerText = 'Copy'; }, 2000);
+                        }).catch(() => {
+                            const ta = document.createElement('textarea');
+                            ta.value = text; document.body.appendChild(ta); ta.select();
+                            try { document.execCommand('copy'); } catch(err) {}
+                            document.body.removeChild(ta);
+                            this.classList.add('copied'); this.innerText = 'Copied!';
+                            setTimeout(() => { this.classList.remove('copied'); this.innerText = 'Copy'; }, 2000);
+                        });
+                    });
+                    pre.prepend(btn);
+                }
+            } catch(err) { /* ignore */ }
+        });
+    }
+
+    function looksLikeCode(text) {
+        if (!text || text.length < 8) return false;
+        const lines = text.split('\n');
+        const signals = [
+            /;\s*$/m, /[{}]/, /^\s{2,}\S/m, /=>/, /\bfunction\b/, /\b(const|let|var)\b\s+\w+\s*=/,
+            /\bdef\s+\w+\s*\(/, /\bclass\s+\w+/, /\bimport\b.+(from|;)/, /#include\s*[<"]/,
+            /\bpublic\s+(static\s+)?\w+.*\(/, /<\/?[a-zA-Z][^\n>]*>/, /\bSELECT\b[\s\S]+\bFROM\b/i,
+            /^\s*(if|for|while)\s*\(/m, /^\s*</, /^\s*}/m, /:\s*$/m
+        ];
+        let score = 0;
+        signals.forEach(rx => { if (rx.test(text)) score++; });
+        if (lines.length >= 3) score += 0.5;
+        return score >= 2;
+    }
+
+    function handleChatInputPaste(e) {
+        const clip = (e.clipboardData || window.clipboardData);
+        if (!clip) return;
+        const pasted = clip.getData('text');
+        if (looksLikeCode(pasted)) {
+            this.dataset.isCode = 'true';
+            this.classList.add('code-mode');
+            showCustomAlert('Code detected — will be saved as a code block.');
+        } else {
+            this.dataset.isCode = '';
+            this.classList.remove('code-mode');
+        }
+    }
+
+    function handleRichTextPaste(e) {
+        const clip = (e.clipboardData || window.clipboardData);
+        if (!clip) return;
+        const pasted = clip.getData('text');
+        if (looksLikeCode(pasted)) {
+            e.preventDefault();
+            document.execCommand('insertHTML', false, `<pre><code class="hljs-block" contenteditable="true">${escapeHTML(pasted)}</code></pre><br>`);
+            highlightCodeBlocks(document.getElementById('rt-editor-area'));
+        }
+    }
+
+    // ================================================================
+    //  FONT PICKER
+    // ================================================================
+    const fontOptions = [
+        { label: 'Default', value: 'inherit' },
+        { label: 'Arial', value: 'Arial' },
+        { label: 'Serif', value: 'Georgia, serif' },
+        { label: 'Monospace', value: "'Courier New', monospace" },
+        { label: 'Cursive', value: "'Comic Sans MS', cursive" }
+    ];
+    function openFontPickerSheet() {
+        let html = fontOptions.map(f => `<div class="native-sheet-option" style="font-family:${f.value};" onclick="applyFontChoice('${f.value.replace(/'/g,"\\'")}')"><span>${f.label}</span></div>`).join('');
+        document.getElementById('native-sheet-title').innerText = 'Select Font';
+        document.getElementById('native-sheet-body').innerHTML = html;
+        pushUI('native-sheet');
+    }
+    function applyFontChoice(val) { popUI(); setTimeout(() => execCmd('fontName', val), 200); }
+
+    // ================================================================
+    //  CURRENCY PICKER
+    // ================================================================
+    const currencyOptions = [
+        { label: 'INR', symbol: '₹' },
+        { label: 'USD', symbol: '$' },
+        { label: 'EUR', symbol: '€' },
+        { label: 'GBP', symbol: '£' },
+        { label: 'JPY', symbol: '¥' },
+        { label: 'RUB', symbol: '₽' }
+    ];
+    function openCurrencyPickerSheet() {
+        let html = currencyOptions.map(c => `<div class="native-sheet-option" onclick="applyCurrencyChoice('${c.symbol}','${c.label}')"><span>${c.symbol} ${c.label}</span></div>`).join('');
+        document.getElementById('native-sheet-title').innerText = 'Select Currency';
+        document.getElementById('native-sheet-body').innerHTML = html;
+        pushUI('native-sheet');
+    }
+    function applyCurrencyChoice(symbol, label) {
+        const btn = document.getElementById('inv-currency-btn');
+        btn.setAttribute('data-value', symbol);
+        btn.innerHTML = `${symbol} ${label} <i class="ph ph-caret-down" style="margin-left:6px;"></i>`;
+        popUI(); calculateInvoice();
+    }
+
+    // ================================================================
+    //  THEME
+    // ================================================================
+    const THEME_LIST = [
+        { id: 'dark', name: 'Dark', dots: ['#0B0F14','#3b82f6','#f9fafb'] },
+        { id: 'light', name: 'Light', dots: ['#f3f4f6','#059669','#111827'] },
+        { id: 'amoled', name: 'AMOLED', dots: ['#000000','#3b82f6','#f5f5f5'] },
+        { id: 'ocean', name: 'Ocean Blue', dots: ['#061826','#22d3ee','#eaf7fb'] },
+        { id: 'midnight', name: 'Midnight Purple', dots: ['#120b23','#a78bfa','#f3eeff'] },
+        { id: 'emerald', name: 'Emerald', dots: ['#06170f','#34d399','#e9fff4'] },
+        { id: 'sunset', name: 'Sunset', dots: ['#1c0f0a','#fb923c','#fff3ec'] }
+    ];
+    const THEME_CLASSES = ['light-mode','theme-amoled','theme-ocean','theme-midnight','theme-emerald','theme-sunset'];
+
+    function getActiveThemeId() {
+        for (const t of THEME_LIST) {
+            if (t.id !== 'dark' && document.body.classList.contains(t.id === 'light' ? 'light-mode' : 'theme-' + t.id))
+                return t.id;
+        }
+        return 'dark';
+    }
+
+    function setAppTheme(id) {
+        THEME_CLASSES.forEach(c => document.body.classList.remove(c));
+        if (id === 'light') document.body.classList.add('light-mode');
+        else if (id !== 'dark') document.body.classList.add('theme-' + id);
+        localStorage.setItem('plushAppTheme', id);
+        saveLocalData();
+        renderThemeGrid();
+    }
+
+    function renderThemeGrid() {
+        const holder = document.getElementById('theme-grid-holder');
+        if (!holder) return;
+        const active = getActiveThemeId();
+        holder.innerHTML = THEME_LIST.map(t => `
+            <div class="theme-swatch-card ${active === t.id ? 'selected' : ''}" style="background:${t.dots[0]};" onclick="setAppTheme('${t.id}')">
+                <div class="theme-swatch-dots"><span style="background:${t.dots[0]}"></span><span style="background:${t.dots[1]}"></span><span style="background:${t.dots[2]}"></span></div>
+                <b style="color:${t.dots[2]}">${t.name}</b>
+            </div>`).join('');
+    }
+
+    // ================================================================
+    //  LANGUAGE — FIXED: now updates UI instantly without lag
+    // ================================================================
+    const LANGUAGES = [
+        { code: 'en', name: 'English', flag: '🇬🇧' },
+        { code: 'hi', name: 'हिन्दी (Hindi)', flag: '🇮🇳' },
+        { code: 'ru', name: 'Русский (Russian)', flag: '🇷🇺' },
+        { code: 'ta', name: 'தமிழ் (Tamil)', flag: '🇮🇳' },
+        { code: 'te', name: 'తెలుగు (Telugu)', flag: '🇮🇳' },
+        { code: 'bn', name: 'বাংলা (Bangla)', flag: '🇧🇩' },
+        { code: 'es', name: 'Español (Spanish)', flag: '🇪🇸' },
+        { code: 'pt', name: 'Português (Portuguese)', flag: '🇵🇹' }
+    ];
+    const I18N = {
+        en: { appTitle: 'Plush Notes', morning: 'Good Morning.', afternoon: 'Good Afternoon.', evening: 'Good Evening.', activeNotes: n => `You have ${n} active notes.`, search: 'Search your premium notes...' },
+        hi: { appTitle: 'प्लश नोट्स', morning: 'सुप्रभात.', afternoon: 'शुभ दोपहर.', evening: 'शुभ संध्या.', activeNotes: n => `आपके पास ${n} सक्रिय नोट्स हैं।`, search: 'अपने प्रीमियम नोट्स खोजें...' },
+        ru: { appTitle: 'Plush Notes', morning: 'Доброе утро.', afternoon: 'Добрый день.', evening: 'Добрый вечер.', activeNotes: n => `У вас ${n} активных заметок.`, search: 'Поиск заметок...' },
+        ta: { appTitle: 'ப்ளஷ் நோட்ஸ்', morning: 'காலை வணக்கம்.', afternoon: 'மதிய வணக்கம்.', evening: 'மாலை வணக்கம்.', activeNotes: n => `உங்களிடம் ${n} செயலில் உள்ள குறிப்புகள் உள்ளன.`, search: 'உங்கள் குறிப்புகளைத் தேடுங்கள்...' },
+        te: { appTitle: 'ప్లష్ నోట్స్', morning: 'శుభోదయం.', afternoon: 'శుభ మధ్యాహ్నం.', evening: 'శుభ సాయంత్రం.', activeNotes: n => `మీకు ${n} యాక్టివ్ నోట్స్ ఉన్నాయి.`, search: 'మీ నోట్స్ శోధించండి...' },
+        bn: { appTitle: 'প্লাশ নোটস', morning: 'শুভ সকাল.', afternoon: 'শুভ অপরাহ্ন.', evening: 'শুভ সন্ধ্যা.', activeNotes: n => `আপনার ${n}টি সক্রিয় নোট আছে।`, search: 'আপনার নোট অনুসন্ধান করুন...' },
+        es: { appTitle: 'Plush Notes', morning: 'Buenos días.', afternoon: 'Buenas tardes.', evening: 'Buenas noches.', activeNotes: n => `Tienes ${n} notas activas.`, search: 'Busca tus notas premium...' },
+        pt: { appTitle: 'Plush Notes', morning: 'Bom dia.', afternoon: 'Boa tarde.', evening: 'Boa noite.', activeNotes: n => `Você tem ${n} notas ativas.`, search: 'Pesquise suas notas premium...' }
+    };
+    let currentLang = localStorage.getItem('plushAppLang') || 'en';
+
+    function openLanguagePickerSheet() {
+        let html = LANGUAGES.map(l => `<div class="native-sheet-option lang-option" onclick="setAppLanguage('${l.code}')"><span class="lang-flag">${l.flag}</span><span>${l.name}</span>${currentLang===l.code ? '<i class="ph-fill ph-check-circle opt-check"></i>' : ''}</div>`).join('');
+        document.getElementById('native-sheet-title').innerText = 'Select Language';
+        document.getElementById('native-sheet-body').innerHTML = html;
+        pushUI('native-sheet');
+    }
+
+    function setAppLanguage(code) {
+        currentLang = code;
+        localStorage.setItem('plushAppLang', code);
+        popUI(); // close the language sheet
+        applyLanguageStrings();
+        // Show a brief toast-like message without modal to avoid lag
+        const toast = document.createElement('div');
+        toast.style.cssText = 'position:fixed; bottom:100px; left:50%; transform:translateX(-50%); background:var(--bg-surface); color:var(--text-primary); padding:12px 24px; border-radius:30px; box-shadow:0 8px 30px rgba(0,0,0,0.5); z-index:200; font-weight:600; border:1px solid var(--border-color); transition: opacity 0.3s;';
+        toast.innerText = `Language: ${LANGUAGES.find(l=>l.code===code)?.name || code}`;
+        document.body.appendChild(toast);
+        setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 2000);
+    }
+
+    function applyLanguageStrings() {
+        const t = I18N[currentLang] || I18N.en;
+        const search = document.querySelector('.search-bar input');
+        if (search) search.placeholder = t.search;
+        updateGreeting(); // updates hero title and subtitle
+        // also update app title if needed
+        document.querySelector('.top-bar h1').innerHTML = `<i class="ph-fill ph-diamond" style="color: var(--accent-primary); font-size: 20px;"></i> ${t.appTitle}`;
+    }
+
+    // ================================================================
+    //  SETTINGS
+    // ================================================================
+    function openMainSettings() { renderSettingsBody(); pushUI('settings-modal'); }
+
+    function renderSettingsBody() {
+        const hidden = notes.filter(n => n.isHidden).length;
+        const name = localStorage.getItem('plushUserName') || 'Plush User';
+        document.getElementById('settings-body').innerHTML = `
+            <div class="settings-profile-card" onclick="goToSettingsSection('profile')">
+                <i class="ph-fill ph-diamond profile-diamond"></i>
+                <div class="profile-info"><b>${escapeHTML(name)}</b><span>Plush Notes Premium · All features unlocked</span></div>
+            </div>
+            <div class="settings-section-label">👤 Profile</div>
+            <div class="settings-group">
+                <div class="premium-setting-item" onclick="goToSettingsSection('profile')">
+                    <div class="setting-icon-box blue"><i class="ph-fill ph-user-circle"></i></div>
+                    <div class="text">Edit Profile</div><i class="ph ph-caret-right" style="color:var(--text-secondary); margin:0;"></i>
+                </div>
+            </div>
+            <div class="settings-section-label">🎨 Themes</div>
+            <div class="settings-group">
+                <div class="premium-setting-item" onclick="goToSettingsSection('themes')">
+                    <div class="setting-icon-box" style="background:#1f2937;"><i class="ph-fill ph-palette"></i></div>
+                    <div class="text">App Theme &amp; Colors</div><i class="ph ph-caret-right" style="color:var(--text-secondary); margin:0;"></i>
+                </div>
+            </div>
+            <div class="settings-section-label">🤖 AI Model</div>
+            <div class="settings-group">
+                <div class="premium-setting-item" onclick="goToSettingsSection('ai')">
+                    <div class="setting-icon-box purple"><i class="ph-fill ph-robot"></i></div>
+                    <div class="text">Choose AI Model</div><i class="ph ph-caret-right" style="color:var(--text-secondary); margin:0;"></i>
+                </div>
+            </div>
+            <div class="settings-section-label">🌐 Language</div>
+            <div class="settings-group">
+                <div class="premium-setting-item" onclick="goToSettingsSection('language')">
+                    <div class="setting-icon-box" style="background:#334155;"><i class="ph-fill ph-translate"></i></div>
+                    <div class="text">App Language</div><i class="ph ph-caret-right" style="color:var(--text-secondary); margin:0;"></i>
+                </div>
+            </div>
+            <div class="settings-section-label">🔒 Privacy</div>
+            <div class="settings-group">
+                <div class="premium-setting-item" onclick="goToSettingsSection('privacy')">
+                    <div class="setting-icon-box" style="background:#334155;"><i class="ph-fill ph-shield-check"></i></div>
+                    <div class="text">Privacy &amp; Security</div><i class="ph ph-caret-right" style="color:var(--text-secondary); margin:0;"></i>
+                </div>
+            </div>
+            <div class="settings-section-label">📂 Hidden Chats</div>
+            <div class="settings-group">
+                <div class="premium-setting-item" onclick="goToSettingsSection('hidden')">
+                    <div class="setting-icon-box" style="background:#475569;"><i class="ph-fill ph-eye-slash"></i></div>
+                    <div class="text">Hidden Files</div><span style="color:var(--text-secondary); font-size:14px; font-weight:600; margin-right:8px;">${hidden}</span><i class="ph ph-caret-right" style="color:var(--text-secondary); margin:0;"></i>
+                </div>
+            </div>
+            <div style="padding: 8px 6px 0 6px; color:var(--text-secondary); font-size:12.5px; font-weight:500; line-height:1.5;">Tip: long-press any note on the home screen and tap the hide icon to move it here.</div>
+            <div class="settings-section-label">📤 Export Chats</div>
+            <div class="settings-group">
+                <div class="premium-setting-item" onclick="goToSettingsSection('export')">
+                    <div class="setting-icon-box blue"><i class="ph-fill ph-export"></i></div><div class="text">Export All Notes</div><i class="ph ph-caret-right" style="color:var(--text-secondary); margin:0;"></i>
+                </div>
+                <div class="premium-setting-item">
+                    <div class="setting-icon-box green"><i class="ph-fill ph-cloud-check"></i></div><div class="text">Auto Backup</div>
+                    <label class="theme-switch"><input type="checkbox" onchange="toggleAutoBackup()" ${isAutoBackupEnabled ? 'checked' : ''}><span class="slider"></span></label>
+                </div>
+            </div>
+        `;
+    }
+
+    function toggleAutoBackup() { isAutoBackupEnabled = !isAutoBackupEnabled; showCustomAlert(isAutoBackupEnabled ? "Auto Backup Enabled." : "Auto Backup Disabled."); }
+    function exportAllNotes() {
+        let text = notes.filter(n=>!n.isHidden).map(n => {
+            let body = n.messages.filter(m => m.type === 'text' || m.type === 'richtext').map(m => m.content.replace(/<[^>]*>?/gm,'')).join('\n');
+            return `${n.title}\n${body}`;
+        }).join('\n\n---\n\n');
+        if (navigator.share) navigator.share({ title: 'Plush Notes Export', text: text });
+        else showCustomAlert("Notes exported and ready to share.");
+    }
+
+    function goToSettingsSection(section) {
+        if (section === 'profile') {
+            document.getElementById('modal-content').innerHTML = `
+                <h3 style="text-align:left;">Your Profile</h3>
+                <input type="text" id="sp-profile-name-input" class="custom-modal-input" placeholder="Your name" value="${escapeHTML(localStorage.getItem('plushUserName') || '')}">
+                <div class="custom-modal-btns-row"><button class="c-btn btn-gray" onclick="popUI()">Cancel</button><button class="c-btn btn-blue" onclick="saveProfileName()">Save</button></div>
+            `;
+            pushUI('custom-modal');
+            setTimeout(() => document.getElementById('sp-profile-name-input').focus(), 100);
+        } else if (section === 'themes') {
+            document.getElementById('modal-content').innerHTML = `<h3 style="text-align:left;">App Theme &amp; Colors</h3><div class="theme-grid" id="theme-grid-holder"></div><div class="custom-modal-btns-row" style="margin-top:20px;"><button class="c-btn btn-blue" style="width:100%" onclick="popUI()">Done</button></div>`;
+            pushUI('custom-modal');
+            renderThemeGrid();
+        } else if (section === 'ai') {
+            const models = [
+                { id:'plush-standard', name:'Plush Standard', desc:'Fast everyday assistant' },
+                { id:'plush-pro', name:'Plush Pro', desc:'Deeper reasoning for complex notes' },
+                { id:'plush-creative', name:'Plush Creative', desc:'Best for brainstorming & writing' }
+            ];
+            let selected = localStorage.getItem('plushAIModel') || 'plush-standard';
+            document.getElementById('modal-content').innerHTML = `<h3 style="text-align:left;">AI Model</h3>` +
+                models.map(m => `
+                    <div class="premium-setting-item" style="padding:14px 10px;" onclick="selectAIModel('${m.id}')">
+                        <div class="setting-icon-box purple"><i class="ph-fill ph-robot"></i></div>
+                        <div class="text" style="display:flex; flex-direction:column;"><span>${m.name}</span><span style="font-size:12px; font-weight:500; color:var(--text-secondary);">${m.desc}</span></div>
+                        ${selected === m.id ? '<i class="ph-fill ph-check-circle" style="color:var(--accent-primary); margin:0;"></i>' : ''}
+                    </div>`).join('') +
+                `<div class="custom-modal-btns-row" style="margin-top:16px;"><button class="c-btn btn-blue" style="width:100%" onclick="popUI()">Done</button></div>`;
+            pushUI('custom-modal');
+        } else if (section === 'privacy') {
+            document.getElementById('modal-content').innerHTML = `
+                <h3 style="text-align:left;">Privacy &amp; Security</h3>
+                <div class="premium-setting-item" onclick="popUI(); openHiddenNotes();">
+                    <div class="setting-icon-box" style="background:#334155;"><i class="ph-fill ph-eye-slash"></i></div>
+                    <div class="text">Hidden Files</div><i class="ph ph-caret-right" style="color:var(--text-secondary); margin:0;"></i>
+                </div>
+                <p style="color:var(--text-secondary); font-size:13px; margin-top:14px;">All your notes stay on this device only — nothing is uploaded anywhere.</p>
+                <div class="custom-modal-btns-row" style="margin-top:10px;"><button class="c-btn btn-blue" style="width:100%" onclick="popUI()">Done</button></div>
+            `;
+            pushUI('custom-modal');
+        } else if (section === 'hidden') {
+            openHiddenNotes();
+        } else if (section === 'export') {
+            exportAllNotes();
+        } else if (section === 'language') {
+            openLanguagePickerSheet();
+        }
+    }
+
+    function saveProfileName() {
+        const v = document.getElementById('sp-profile-name-input').value.trim();
+        if (v) localStorage.setItem('plushUserName', v);
+        popUI(); renderSettingsBody();
+    }
+    function selectAIModel(id) { localStorage.setItem('plushAIModel', id); goToSettingsSection('ai'); }
+
+    function openHiddenNotes() {
+        const hidden = notes.filter(n => n.isHidden);
+        let html = '';
+        if (hidden.length === 0) html = `<p style="margin-bottom:5px;">No hidden notes yet.</p>`;
+        else {
+            html = `<div style="max-height:50vh; overflow-y:auto; margin:0 -5px 20px -5px;">` +
+                hidden.map(n => `
+                    <div class="premium-setting-item" style="padding:12px 5px;">
+                        <div class="setting-icon-box" style="background:${n.avatarGrad || 'var(--accent-gradient)'}; width:34px; height:34px; font-size:16px;" onclick="openHiddenNoteDirectly(${n.id})">
+                            ${n.image ? `<img src="${n.image}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">` : `<i class="${n.icon}"></i>`}
+                        </div>
+                        <div class="text" style="font-size:15px;" onclick="openHiddenNoteDirectly(${n.id})">${escapeHTML(n.title)}</div>
+                        <i class="ph-fill ph-eye" style="color:var(--accent-primary); margin:0; cursor:pointer; font-size:20px;" onclick="unhideNote(${n.id})"></i>
+                    </div>`).join('') + `</div>`;
+        }
+        document.getElementById('modal-content').innerHTML = `<h3 style="text-align:left;">Hidden Files</h3>${html}<div class="custom-modal-btns-row"><button class="c-btn btn-blue" style="width:100%;" onclick="popUI()">Close</button></div>`;
+        pushUI('custom-modal');
+    }
+
+    function openHiddenNoteDirectly(id) {
+        popUI(); popUI();
+        const note = notes.find(n => n.id === id);
+        if (!note) return;
+        currentNoteId = id;
+        setTimeout(() => openChatUI(note), 300);
+    }
+    function unhideNote(id) {
+        const note = notes.find(n => n.id === id);
+        if (note) note.isHidden = false;
+        saveLocalData();
+        renderNotesList(document.querySelector('.search-bar input')?.value || '');
+        renderSettingsBody();
+        openHiddenNotes();
+    }
+
+    // ================================================================
+    //  CUSTOM ALERT
+    // ================================================================
+    function showCustomAlert(text) {
+        document.getElementById('modal-content').innerHTML = `
+            <h3 style="margin-bottom:20px;">Notice</h3><p style="color: var(--text-secondary); margin-bottom:25px;">${text}</p>
+            <div class="custom-modal-btns-row"><button class="c-btn btn-blue" style="width:100%;" onclick="popUI()">OK</button></div>
+        `;
+        pushUI('custom-modal');
+    }
+
+    // ================================================================
+    //  INIT
+    // ================================================================
+    window.onload = async function() {
+        const savedTheme = localStorage.getItem('plushAppTheme');
+        if (savedTheme && savedTheme !== 'dark') {
+            if (savedTheme === 'light') document.body.classList.add('light-mode');
+            else document.body.classList.add('theme-' + savedTheme);
+        }
+        try {
+            await initDB();
+            let saved = await loadLocalData();
+            notes = (saved && saved.length > 0) ? saved : defaultNotes;
+        } catch(e) { notes = defaultNotes; }
+        notes.forEach(n => { if (typeof n.isHidden !== 'boolean') n.isHidden = false; });
+
+        initRippleEffect();
+        initScrollToBottomBtn();
+        setupCircleButtons(); // <-- attach circle button events
+        applyLanguageStrings();
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        updateGreeting();
+        renderNotesList();
+        setupCanvas();
+        setupDraggableTextLogic();
+        setupCalculatorDrag();
+        document.getElementById('rt-editor-area').contentEditable = true;
+        document.execCommand('defaultParagraphSeparator', false, 'p');
+
+        const chatInput = document.getElementById('chat-input');
+        chatInput.addEventListener('input', function() { autoResize(this); });
+        chatInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                const lines = this.value.split('\n');
+                if (lines[lines.length-1].trim().startsWith('•')) {
+                    e.preventDefault();
+                    this.value += '\n• ';
+                    autoResize(this);
+                }
+            }
+        });
+        chatInput.addEventListener('focus', () => document.body.classList.add('focus-mode'));
+        chatInput.addEventListener('blur', () => document.body.classList.remove('focus-mode'));
+        chatInput.addEventListener('paste', handleChatInputPaste);
+
+        const rt = document.getElementById('rt-editor-area');
+        rt.addEventListener('focus', () => { document.body.classList.add('focus-mode'); updateToolbarActiveStates(); });
+        rt.addEventListener('blur', () => { document.body.classList.remove('focus-mode'); clearToolbarActiveStates(); });
+        rt.addEventListener('keyup', updateToolbarActiveStates);
+        rt.addEventListener('mouseup', updateToolbarActiveStates);
+        rt.addEventListener('touchend', () => setTimeout(updateToolbarActiveStates, 10));
+        document.addEventListener('selectionchange', () => {
+            if (document.activeElement === rt) { updateToolbarActiveStates(); captureEditorSelection(); }
+        });
+        rt.addEventListener('paste', handleRichTextPaste);
+
+        setInterval(updateGreeting, 60000);
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js').catch(err => {
+                    console.log('Service worker registration failed:', err);
+                });
+            });
+        }
+    };
+</script>
+</body>
+</html>
