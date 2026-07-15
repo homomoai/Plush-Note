@@ -12,6 +12,8 @@
     <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
     <link rel="apple-touch-icon" href="icon-192.png">
     <title>Plush Notes Premium</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- Code Highlighting -->
@@ -136,6 +138,14 @@
             font-family: inherit;
         }
         ::placeholder { color: var(--text-secondary) !important; opacity: 0.7; }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
 
         /* ===== APP CONTAINER ===== */
         .app-container {
@@ -193,6 +203,7 @@
         /* ===== NOTES LIST ===== */
         .notes-list {
             flex-grow: 1; overflow-y: auto; padding-bottom: 120px; padding-top: 10px;
+            -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
         }
         .notes-list::-webkit-scrollbar { display: none; }
         .note-item {
@@ -203,6 +214,11 @@
             backdrop-filter: blur(10px);
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+        .note-item.note-enter {
+            opacity: 0; transform: translateY(10px) scale(0.97);
+            animation: note-enter-anim 0.35s cubic-bezier(0.175,0.885,0.32,1.275) forwards;
+        }
+        @keyframes note-enter-anim { to { opacity: 1; transform: translateY(0) scale(1); } }
         body.light-mode .note-item { box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .note-item.pressed { transform: scale(0.96); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .note-avatar {
@@ -241,7 +257,7 @@
         }
         .fab-wrapper {
             position: absolute; right: 25px; top: -25px; border-radius: 50%;
-            padding: 6px; background: var(--bg-main); transition: 0.3s;
+            padding: 6px; background: var(--bg-main); transition: background-color 0.3s ease;
         }
         .fab-btn {
             width: 60px; height: 60px; border-radius: 50%;
@@ -250,7 +266,6 @@
             font-size: 28px; border: none; cursor: pointer;
             box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
             transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            will-change: transform;
         }
         .fab-btn.active { transform: rotate(45deg) scale(0.9); }
         .fab-menu {
@@ -260,7 +275,6 @@
             transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
             z-index: 25; transform: translateY(15px) scale(0.95);
             transform-origin: bottom right;
-            will-change: transform, opacity;
         }
         .fab-menu.active { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
         .fab-item {
@@ -278,7 +292,8 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.4); z-index: 100;
             display: none; backdrop-filter: blur(4px);
-            opacity: 0; transition: opacity 0.2s;
+            opacity: 0; transition: opacity 0.2s ease;
+            transform: translateZ(0); isolation: isolate;
         }
         .circular-menu-overlay.active { display: block; opacity: 1; }
         .circle-menu-center {
@@ -293,10 +308,12 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.3);
             border: 1px solid rgba(255,255,255,0.1);
             cursor: pointer; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s;
-            opacity: 0; transform: scale(0.5); z-index: 100;
+            opacity: 0; z-index: 100;
             font-size: 22px; color: white; touch-action: manipulation;
+            --tx: 0px; --ty: 0px; --ts: 0.5;
+            transform: translate(var(--tx), var(--ty)) scale(var(--ts));
         }
-        .circle-btn:active { filter: brightness(1.2); transform: scale(0.9) !important; }
+        .circle-btn:active { filter: brightness(1.2); --ts: 0.88; }
         .c-pin { background: linear-gradient(135deg, #3b82f6, #2563eb); }
         .c-dup { background: linear-gradient(135deg, #10b981, #059669); }
         .c-color { background: linear-gradient(135deg, #f59e0b, #d97706); }
@@ -304,12 +321,12 @@
         .c-hide { background: linear-gradient(135deg, #64748b, #475569); }
         .c-del { background: linear-gradient(135deg, #ef4444, #dc2626); }
 
-        .circular-menu-overlay.active .c-pin { transform: translate(0, -78px) scale(1); opacity: 1; }
-        .circular-menu-overlay.active .c-dup { transform: translate(68px, -39px) scale(1); opacity: 1; }
-        .circular-menu-overlay.active .c-hide { transform: translate(68px, 39px) scale(1); opacity: 1; }
-        .circular-menu-overlay.active .c-color { transform: translate(0, 78px) scale(1); opacity: 1; }
-        .circular-menu-overlay.active .c-share { transform: translate(-68px, 39px) scale(1); opacity: 1; }
-        .circular-menu-overlay.active .c-del { transform: translate(-68px, -39px) scale(1); opacity: 1; }
+        .circular-menu-overlay.active .c-pin { --tx: 0px; --ty: -78px; --ts: 1; opacity: 1; }
+        .circular-menu-overlay.active .c-dup { --tx: 68px; --ty: -39px; --ts: 1; opacity: 1; }
+        .circular-menu-overlay.active .c-hide { --tx: 68px; --ty: 39px; --ts: 1; opacity: 1; }
+        .circular-menu-overlay.active .c-color { --tx: 0px; --ty: 78px; --ts: 1; opacity: 1; }
+        .circular-menu-overlay.active .c-share { --tx: -68px; --ty: 39px; --ts: 1; opacity: 1; }
+        .circular-menu-overlay.active .c-del { --tx: -68px; --ty: -39px; --ts: 1; opacity: 1; }
 
         /* ===== CHAT MODAL ===== */
         .chat-modal {
@@ -347,6 +364,7 @@
             background-size: cover; background-position: center; background-attachment: fixed;
             overflow-x: hidden; touch-action: pan-y;
             transition: filter 0.3s ease, opacity 0.3s ease;
+            -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
         }
         body.focus-mode header, body.focus-mode .chat-header, body.focus-mode .chat-body {
             filter: blur(6px); opacity: 0.5;
@@ -422,15 +440,16 @@
         .chat-footer {
             flex-shrink: 0; display: flex; flex-direction: column;
             background: var(--glass-bg); backdrop-filter: blur(20px);
-            transition: 0.3s; border-top: 1px solid var(--border-color);
-            z-index: 31; padding-bottom: 5px;
+            transition: background-color 0.3s ease; border-top: 1px solid var(--border-color);
+            z-index: 31; padding-bottom: 5px; transform: translateZ(0); isolation: isolate;
         }
         .chat-input-area {
             display: flex; padding: 12px 15px; align-items: flex-end; gap: 12px;
         }
         .attach-btn {
-            color: var(--text-secondary); font-size: 26px; padding: 8px; cursor: pointer; transition: 0.2s;
+            color: var(--text-secondary); font-size: 26px; padding: 8px; cursor: pointer; transition: color 0.2s ease, transform 0.2s ease;
         }
+        .attach-btn:active { transform: scale(0.9); }
         .chat-input-wrapper {
             flex: 1; background-color: var(--bg-main); border-radius: 24px;
             padding: 12px 18px; display: flex; align-items: center;
@@ -480,7 +499,7 @@
         /* ===== DRAWING ===== */
         .draw-area-container {
             flex: 1; position: relative; overflow: hidden;
-            background: transparent; transition: background 0.3s;
+            background: transparent; transition: background-color 0.3s ease;
         }
         #draw-canvas {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -517,7 +536,8 @@
         .color-drawer-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.6); z-index: 100;
-            display: none; backdrop-filter: blur(4px); opacity: 0; transition: opacity 0.2s;
+            display: none; backdrop-filter: blur(4px); opacity: 0; transition: opacity 0.2s ease;
+            transform: translateZ(0); isolation: isolate;
         }
         .color-drawer-overlay.active { display: block; opacity: 1; }
         .color-drawer {
@@ -773,6 +793,7 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.7); z-index: 100;
             display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px);
+            transform: translateZ(0); isolation: isolate;
         }
         .custom-modal-overlay.active { display: flex; }
         .custom-modal-box {
@@ -781,7 +802,7 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.4);
             border: 1px solid var(--border-color);
             transform: scale(0.9); opacity: 0;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
         }
         .custom-modal-overlay.active .custom-modal-box { transform: scale(1); opacity: 1; }
         .custom-modal-box h3 {
@@ -802,7 +823,7 @@
         .custom-modal-btns-row button { flex: 1; }
         .c-btn {
             padding: 14px; border: none; border-radius: 12px; font-size: 16px;
-            font-weight: 600; cursor: pointer; transition: 0.2s;
+            font-weight: 600; cursor: pointer; transition: transform 0.2s ease, filter 0.2s ease;
         }
         .c-btn:active { transform: scale(0.95); }
         .btn-blue { background: var(--accent-gradient); color: #fff; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
@@ -814,12 +835,12 @@
         .theme-switch input { opacity: 0; width: 0; height: 0; }
         .slider {
             position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
-            background-color: var(--border-color); transition: .4s; border-radius: 26px;
+            background-color: var(--border-color); transition: background-color 0.3s ease; border-radius: 26px;
         }
         .slider:before {
             position: absolute; content: ""; height: 20px; width: 20px;
             left: 3px; bottom: 3px; background-color: white;
-            transition: .4s; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         input:checked + .slider { background-color: var(--accent-primary); }
         input:checked + .slider:before { transform: translateX(24px); }
@@ -868,7 +889,7 @@
             position: absolute; top: 6px; left: 10px; font-size: 12px; font-weight: 600;
             color: var(--text-secondary); background: rgba(0,0,0,0.35);
             padding: 2px 10px; border-radius: 6px; border: none; cursor: pointer;
-            pointer-events: auto; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;
+            pointer-events: auto; transition: transform 0.2s ease, color 0.2s ease; font-family: 'Plus Jakarta Sans', sans-serif;
             letter-spacing: 0.3px; z-index: 2;
         }
         .code-copy-btn:active { transform: scale(0.92); }
@@ -880,6 +901,7 @@
             background: rgba(0,0,0,0.55); z-index: 110;
             display: none; align-items: flex-end; justify-content: center;
             backdrop-filter: blur(3px); opacity: 0; transition: opacity 0.2s ease;
+            transform: translateZ(0); isolation: isolate;
         }
         .native-sheet-overlay.active { display: flex; opacity: 1; }
         .native-sheet {
@@ -1389,7 +1411,7 @@
         if (index === -1) { closeCircularMenu(); return; }
 
         switch (action) {
-            case 'pin': note.isPinned = !note.isPinned; break;
+            case 'pin': note.isPinned = !note.isPinned; if (navigator.vibrate) navigator.vibrate(4); break;
             case 'dup': {
                 let dup = JSON.parse(JSON.stringify(note));
                 dup.id = Date.now() + Math.random() * 1000;
@@ -1421,7 +1443,7 @@
                 setTimeout(() => showCustomAlert(`"${escapeHTML(note.title)}" moved to Hidden Files.`), 300);
                 return;
             }
-            case 'del': notes.splice(index, 1); break;
+            case 'del': notes.splice(index, 1); if (navigator.vibrate) navigator.vibrate([20,30,20]); break;
             default: closeCircularMenu(); return;
         }
         saveLocalData(); closeCircularMenu();
@@ -1488,6 +1510,16 @@
             el.innerHTML = `<div class="note-avatar" style="${avatarStyle}">${avatarHTML}</div><div class="note-content"><div class="note-header"><div class="note-title">${escapeHTML(note.title)} ${pinHTML}</div><div class="note-time">${note.time}</div></div><div class="note-preview">${preview}</div></div>`;
             container.appendChild(el);
         });
+
+        // Staggered entrance for the first batch of visible items (premium feel, not a snap-in dump)
+        const items = container.querySelectorAll('.note-item');
+        items.forEach((item, i) => {
+            if (i < 6) {
+                item.classList.add('note-enter');
+                item.style.animationDelay = `${i * 15}ms`;
+                item.addEventListener('animationend', () => item.classList.remove('note-enter'), { once: true });
+            }
+        });
     }
 
     function updateGreeting() {
@@ -1505,8 +1537,15 @@
     //  FAB
     // ================================================================
     function toggleFabMenu() {
-        document.getElementById('fab-menu').classList.toggle('active');
-        document.getElementById('main-fab').classList.toggle('active');
+        if (navigator.vibrate) navigator.vibrate(4);
+        const menu = document.getElementById('fab-menu');
+        const fab = document.getElementById('main-fab');
+        menu.style.willChange = 'transform, opacity';
+        fab.style.willChange = 'transform';
+        menu.classList.toggle('active');
+        fab.classList.toggle('active');
+        const clearWillChange = () => { menu.style.willChange = 'auto'; fab.style.willChange = 'auto'; };
+        fab.addEventListener('transitionend', clearWillChange, { once: true });
     }
     function triggerAction(action) {
         toggleFabMenu();
@@ -1618,22 +1657,39 @@
                         document.getElementById('inv-client').value = data.client || '';
                         document.getElementById('inv-date').value = data.date || '';
                         const tbody = document.getElementById('inv-tbody');
-                        const rows = data.itemsHtml.match(/<tr>.*?<\/tr>/gs) || [];
-                        rows.forEach(rowHTML => {
-                            const parser = new DOMParser();
-                            const doc = parser.parseFromString(rowHTML, 'text/html');
-                            const cells = doc.querySelectorAll('td');
-                            if (cells.length >= 4) {
+
+                        if (Array.isArray(data.items) && data.items.length > 0) {
+                            // Reliable path: rebuild rows straight from stored structured data, no HTML re-parsing involved
+                            data.items.forEach(it => {
                                 const newRow = document.createElement('tr');
                                 newRow.innerHTML = `
-                                    <td><input type="text" class="inv-cell-input" value="${escapeHTML(cells[0].textContent)}" placeholder="Item Name"></td>
-                                    <td><input type="number" class="inv-cell-input" value="${cells[1].textContent}" min="1" oninput="calculateInvoice()"></td>
-                                    <td><input type="number" class="inv-cell-input" value="${cells[2].textContent}" min="0" oninput="calculateInvoice()"></td>
-                                    <td style="color:var(--accent-primary); font-weight:bold;" class="inv-row-total">${cells[3].textContent}</td>
+                                    <td><input type="text" class="inv-cell-input" value="${escapeHTML(it.name || '')}" placeholder="Item Name"></td>
+                                    <td><input type="number" class="inv-cell-input" value="${escapeHTML(String(it.qty ?? 1))}" min="1" oninput="calculateInvoice()"></td>
+                                    <td><input type="number" class="inv-cell-input" value="${escapeHTML(String(it.price ?? 0))}" min="0" oninput="calculateInvoice()"></td>
+                                    <td style="color:var(--accent-primary); font-weight:bold;" class="inv-row-total">${escapeHTML(String(it.total ?? '0.00'))}</td>
                                 `;
                                 tbody.appendChild(newRow);
-                            }
-                        });
+                            });
+                        } else if (data.itemsHtml) {
+                            // Legacy fallback for invoices saved before structured items were introduced
+                            const rows = data.itemsHtml.match(/<tr>.*?<\/tr>/gs) || [];
+                            rows.forEach(rowHTML => {
+                                const parser = new DOMParser();
+                                const doc = parser.parseFromString(rowHTML, 'text/html');
+                                const cells = doc.querySelectorAll('td');
+                                if (cells.length >= 4) {
+                                    const newRow = document.createElement('tr');
+                                    newRow.innerHTML = `
+                                        <td><input type="text" class="inv-cell-input" value="${escapeHTML(cells[0].textContent)}" placeholder="Item Name"></td>
+                                        <td><input type="number" class="inv-cell-input" value="${cells[1].textContent}" min="1" oninput="calculateInvoice()"></td>
+                                        <td><input type="number" class="inv-cell-input" value="${cells[2].textContent}" min="0" oninput="calculateInvoice()"></td>
+                                        <td style="color:var(--accent-primary); font-weight:bold;" class="inv-row-total">${cells[3].textContent}</td>
+                                    `;
+                                    tbody.appendChild(newRow);
+                                }
+                            });
+                        }
+
                         if (tbody.rows.length === 0) addInvoiceItem();
                         calculateInvoice();
                         pushUI('invoice-overlay');
@@ -1680,6 +1736,7 @@
         const total = document.getElementById('inv-grand-total').innerText;
         const tbody = document.getElementById('inv-tbody');
         let itemsHtml = '';
+        const items = [];
         for (let i=0; i<tbody.rows.length; i++) {
             const row = tbody.rows[i];
             const name = row.cells[0].querySelector('input').value || 'Item';
@@ -1687,8 +1744,9 @@
             const price = row.cells[2].querySelector('input').value;
             const rTotal = row.cells[3].innerText;
             itemsHtml += `<tr><td>${escapeHTML(name)}</td><td>${qty}</td><td>${price}</td><td>${rTotal}</td></tr>`;
+            items.push({ name, qty, price, total: rTotal });
         }
-        const data = { client, date, total, itemsHtml };
+        const data = { client, date, total, itemsHtml, items };
         const content = JSON.stringify(data);
 
         if (editInvoiceMsgId) {
@@ -1716,10 +1774,37 @@
     function setupCalculatorDrag() {
         const calcEl = document.getElementById('calc-modal');
         const header = document.getElementById('calc-header');
-        let dragging = false, offX, offY;
-        const start = (e) => { dragging = true; const c = e.clientX || e.touches[0].clientX; const d = e.clientY || e.touches[0].clientY; const r = calcEl.getBoundingClientRect(); offX = c - r.left; offY = d - r.top; };
-        const move = (e) => { if (!dragging) return; e.preventDefault(); const c = e.clientX || e.touches[0].clientX; const d = e.clientY || e.touches[0].clientY; calcEl.style.left = (c - offX) + 'px'; calcEl.style.top = (d - offY) + 'px'; calcEl.style.transform = 'none'; };
-        const end = () => { dragging = false; };
+        let dragging = false, offX, offY, pendingX = null, pendingY = null, rafId = null;
+
+        const applyFrame = () => {
+            rafId = null;
+            if (pendingX === null) return;
+            calcEl.style.transform = `translate3d(${pendingX}px, ${pendingY}px, 0)`;
+        };
+
+        const start = (e) => {
+            dragging = true;
+            const c = e.clientX || e.touches[0].clientX;
+            const d = e.clientY || e.touches[0].clientY;
+            const r = calcEl.getBoundingClientRect();
+            offX = c - r.left; offY = d - r.top;
+            // Anchor to top-left with left/top:0 once, then drive position purely via transform (GPU-accelerated, no reflow)
+            calcEl.style.left = '0'; calcEl.style.top = '0';
+            calcEl.style.transform = `translate3d(${r.left}px, ${r.top}px, 0)`;
+            calcEl.style.willChange = 'transform';
+        };
+        const move = (e) => {
+            if (!dragging) return;
+            e.preventDefault();
+            const c = e.clientX || e.touches[0].clientX;
+            const d = e.clientY || e.touches[0].clientY;
+            pendingX = c - offX; pendingY = d - offY;
+            if (rafId === null) rafId = requestAnimationFrame(applyFrame);
+        };
+        const end = () => {
+            dragging = false;
+            calcEl.style.willChange = 'auto';
+        };
         header.addEventListener('mousedown', start); document.addEventListener('mousemove', move); document.addEventListener('mouseup', end);
         header.addEventListener('touchstart', start, {passive:false}); document.addEventListener('touchmove', move, {passive:false}); document.addEventListener('touchend', end);
     }
@@ -1893,6 +1978,7 @@
         const text = input.value.trim();
         if (!text) return;
         const isCode = input.dataset.isCode === 'true';
+        if (navigator.vibrate) navigator.vibrate(4);
         saveMessageToNote(isCode ? 'code' : 'text', text);
         input.value = '';
         input.style.height = '24px';
